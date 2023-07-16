@@ -1,6 +1,8 @@
-bin/
-obj/
+[Bb]in/
+[Oo]bj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+
+# IDE related objects
 .idea

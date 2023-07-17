@@ -1,0 +1,17 @@
+services: 
+  app:
+    build:
+      context: .
+    ports:
+      - 5000:80
+  builder:
+    build:
+      context: .
+      target: build
+  unit-tests:
+    build:
+      context: .
+      target: build
+    command: dotnet test -c Release tests/Api.Tests.Unit/ --logger trx;LogFilePrefix=/app/tests/test-results/
+      /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+      /p:CoverletOutput='/app/tests/test-results/unit-tests/'

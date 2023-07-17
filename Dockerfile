@@ -10,7 +10,7 @@ RUN for file in $(ls *.csproj); do mkdir -p ./tests/${file%.*}/ && mv $file ./te
 RUN dotnet restore
 
 COPY . .
-RUN dotnet build -c Release
+RUN dotnet build -c Release --no-restore
 
 FROM build AS publish
 RUN dotnet publish "/src/Api/Api.csproj" -c Release -o /app/publish /p:UseAppHost=false --no-build

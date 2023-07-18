@@ -4,7 +4,7 @@ using Infrastructure.Logging;
 using Serilog.Events;
 using Xunit;
 
-namespace Infrastructure.Tests.Unit.Logging;
+namespace Ok.Movies.Tests.Unit.Infrastructure.Logging;
 
 public class LoggingOptionsValidatorTests
 {

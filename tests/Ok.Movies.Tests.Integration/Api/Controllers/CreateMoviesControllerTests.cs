@@ -1,23 +1,17 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
-using Bogus;
-using Contracts.Requests;
+using Api;
 using Contracts.Responses;
 using FluentAssertions;
 using Xunit;
 
-namespace Api.Tests.Integration.Api.Controllers;
+namespace Ok.Movies.Tests.Integration.Api.Controllers;
 
-public class CreateMoviesControllerTests : IClassFixture<MoviesApiFactory>
+public class CreateMoviesControllerTests : IClassFixture<TestApiFactory>
 {
     private readonly HttpClient _client;
 
-    private readonly Faker<CreateMovieRequest> _movieGenerator = new Faker<CreateMovieRequest>()
-        .RuleFor(request => request.Title, faker => faker.Lorem.Sentence())
-        .RuleFor(request => request.Genres, faker => faker.Lorem.Words())
-        .RuleFor(request => request.YearOfRelease, faker => faker.Date.Soon().Year);
-
-    public CreateMoviesControllerTests(MoviesApiFactory apiFactory)
+    public CreateMoviesControllerTests(TestApiFactory apiFactory)
     {
         _client = apiFactory.CreateClient();
     }
@@ -26,7 +20,7 @@ public class CreateMoviesControllerTests : IClassFixture<MoviesApiFactory>
     public async Task Create_CreatesMovie_WhenDataIsValid()
     {
         // Arrange
-        var movie = _movieGenerator.Generate();
+        var movie = MovieFaker.CreateMovieRequestGenerator().Generate();
 
         // Act
         var response = await _client.PostAsJsonAsync(ApiEndpoints.Movies.Create, movie);

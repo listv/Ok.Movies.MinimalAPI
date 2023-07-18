@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Api;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Logging;
 
-namespace Api.Tests.Integration.Api.Controllers;
+namespace Ok.Movies.Tests.Integration.Api;
 
-public class MoviesApiFactory : WebApplicationFactory<IApiMarker>
+public class TestApiFactory : WebApplicationFactory<IApiMarker>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {

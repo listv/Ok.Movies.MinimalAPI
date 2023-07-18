@@ -7,4 +7,5 @@ public class LoggingOptions
     public required bool? WriteToFile { get; init; }
     public required bool? StructuredConsoleLogging { get; init; }
     public required string? MinimumLogLevel { get; init; }
+    public required string? AppName { get; init; }
 }

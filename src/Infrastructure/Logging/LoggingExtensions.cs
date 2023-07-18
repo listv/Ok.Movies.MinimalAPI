@@ -19,7 +19,7 @@ public static class LoggingExtensions
         _ = builder.Host.UseSerilog((_, sp, serilogConfig) =>
         {
             var loggerSettings = sp.GetRequiredService<IOptions<LoggingOptions>>().Value;
-            var appName = AppDomain.CurrentDomain.FriendlyName;
+            var appName = loggerSettings.AppName!;
             var writeToFile = loggerSettings.WriteToFile!.Value;
             var structuredConsoleLogging = loggerSettings.StructuredConsoleLogging!.Value;
             var minLogLevel = loggerSettings.MinimumLogLevel!;

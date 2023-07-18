@@ -1,0 +1,7 @@
+{
+  "Logging":{
+    "WriteToFile": true,
+    "StructuredConsoleLogging": false,
+    "MinimumLogLevel": "Information"
+  }
+}

@@ -14,7 +14,7 @@ public static class LoggingExtensions
     {
         builder.Services
             .AddOptions<LoggingOptions>()
-            .BindConfiguration(nameof(LoggingOptions.SectionName));
+            .BindConfiguration(LoggingOptions.SectionName);
 
         _ = builder.Host.UseSerilog((_, sp, serilogConfig) =>
         {

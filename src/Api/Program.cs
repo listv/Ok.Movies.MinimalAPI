@@ -1,4 +1,5 @@
 using Api.Configurations;
+using Application;
 using Infrastructure.Logging;
 using Serilog;
 
@@ -10,10 +11,8 @@ try
 
     builder.AddConfigurations()
         .RegisterSerilog();
-    
-    
 
-// Add services to the container.
+    builder.Services.AddApplication();
 
     builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -22,7 +21,6 @@ try
 
     var app = builder.Build();
 
-// Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();

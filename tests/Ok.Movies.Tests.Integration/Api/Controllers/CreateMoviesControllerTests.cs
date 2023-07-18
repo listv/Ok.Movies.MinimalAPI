@@ -35,6 +35,6 @@ public class CreateMoviesControllerTests : IClassFixture<MoviesApiFactory>
         response.StatusCode.Should().Be(HttpStatusCode.Created);
         var movieResponse = await response.Content.ReadFromJsonAsync<MovieResponse>();
         movieResponse.Should().BeEquivalentTo(movie);
-        response.Headers.Location!.ToString().Should().Be($"/api/movies/{movieResponse!.Id}");
+        response.Headers.Location!.ToString().Should().Be($"/{ApiEndpoints.Movies.Create}/{movieResponse!.Id}");
     }
 }

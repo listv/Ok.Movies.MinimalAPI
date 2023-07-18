@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers;
 
 [ApiController]
-[Route("api")]
-public class MoviesController:ControllerBase
+public class MoviesController : ControllerBase
 {
     private readonly IMovieRepository _movieRepository;
 
@@ -16,12 +15,12 @@ public class MoviesController:ControllerBase
         _movieRepository = movieRepository;
     }
 
-    [HttpPost("movies")]
-    public async Task<IActionResult> Create([FromBody]CreateMovieRequest request)
+    [HttpPost(ApiEndpoints.Movies.Create)]
+    public async Task<IActionResult> Create([FromBody] CreateMovieRequest request)
     {
         var movie = request.MapToMovie();
         await _movieRepository.CreateAsync(movie);
         var response = movie.MapToMovieResponse();
-        return Created($"/api/movies/{movie.Id}", response);
+        return Created($"/{ApiEndpoints.Movies.Create}/{movie.Id}", response);
     }
 }

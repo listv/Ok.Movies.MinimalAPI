@@ -12,6 +12,15 @@ services:
     build:
       context: .
       target: build
-    command: dotnet test -c Release tests/Ok.Movies.Tests.Unit/ --logger trx;LogFilePrefix=/app/tests/test-results/
+    command: dotnet test -c Release tests/Ok.Movies.Tests.Unit/
+      --logger trx;LogFilePrefix=/app/tests/test-results/
       /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
       /p:CoverletOutput='/app/tests/test-results/unit-tests/'
+  integration-tests:
+    build:
+      context: .
+      target: build
+    command: dotnet test -c Release tests/Ok.Movies.Tests.Integration/
+      --logger trx;LogFilePrefix=/app/tests/test-results/
+      /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+      /p:CoverletOutput='/app/tests/test-results/integration-tests/'

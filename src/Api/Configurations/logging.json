@@ -2,6 +2,7 @@
   "Logging":{
     "WriteToFile": true,
     "StructuredConsoleLogging": false,
-    "MinimumLogLevel": "Information"
+    "MinimumLogLevel": "Information",
+    "AppName": "Ok.Movies"
   }
 }

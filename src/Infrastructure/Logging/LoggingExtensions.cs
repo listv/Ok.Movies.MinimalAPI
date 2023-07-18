@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using FluentValidation;
+using Infrastructure.Validation;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Serilog;
@@ -12,9 +14,12 @@ public static class LoggingExtensions
 {
     public static void RegisterSerilog(this WebApplicationBuilder builder)
     {
+        builder.Services.AddSingleton<IValidator<LoggingOptions>, LoggingOptionsValidator>();
         builder.Services
             .AddOptions<LoggingOptions>()
-            .BindConfiguration(LoggingOptions.SectionName);
+            .BindConfiguration(LoggingOptions.SectionName)
+            .ValidateFluently()
+            .ValidateOnStart();
 
         _ = builder.Host.UseSerilog((_, sp, serilogConfig) =>
         {

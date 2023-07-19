@@ -20,7 +20,7 @@ public class MoviesController : ControllerBase
     {
         var movie = request.MapToMovie();
         await _movieRepository.CreateAsync(movie);
-        var response = movie.MapToMovieResponse();
+        var response = movie.MapToResponse();
         return Created($"/{ApiEndpoints.Movies.Create}/{movie.Id}", response);
     }
 
@@ -33,7 +33,17 @@ public class MoviesController : ControllerBase
             return NotFound();
         }
 
-        var movieResponse = movie.MapToMovieResponse();
+        var movieResponse = movie.MapToResponse();
         return Ok(movieResponse);
+    }
+
+    [HttpGet(ApiEndpoints.Movies.GetAll)]
+    public async Task<IActionResult> GetAll()
+    {
+        var movies = await _movieRepository.GetAllAsync();
+
+        var moviesResponse = movies.MapToResponse();
+
+        return Ok(moviesResponse);
     }
 }

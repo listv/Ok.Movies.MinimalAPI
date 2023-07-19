@@ -3,13 +3,14 @@ using Application;
 using Infrastructure.Logging;
 using Serilog;
 
-StaticLogger.EnsureInitialized();
+StaticLogger.EnsureInitialized(args);
 Log.Information("Server booting up...");
 try
 {
     var builder = WebApplication.CreateBuilder(args);
 
-    builder.AddConfigurations()
+    builder
+        .AddConfigurations()
         .RegisterSerilog();
 
     builder.Services.AddApplication();
@@ -37,12 +38,12 @@ try
 }
 catch (Exception ex)
 {
-    StaticLogger.EnsureInitialized();
+    StaticLogger.EnsureInitialized(args);
     Log.Fatal(ex, "Application terminated unexpectedly");
 }
 finally
 {
-    StaticLogger.EnsureInitialized();
+    StaticLogger.EnsureInitialized(args);
     Log.Information("Server shutting down...");
     Log.CloseAndFlush();
 }

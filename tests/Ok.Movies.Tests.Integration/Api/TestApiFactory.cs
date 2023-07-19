@@ -10,5 +10,6 @@ public class TestApiFactory : WebApplicationFactory<IApiMarker>
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.ConfigureLogging(loggingBuilder => loggingBuilder.ClearProviders());
+        builder.UseSetting("integrationTest", "true");
     }
 }

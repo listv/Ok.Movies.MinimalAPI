@@ -31,15 +31,18 @@ public class GetAllMoviesControllerTests:IClassFixture<TestApiFactory>
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var moviesResponse = await response.Content.ReadFromJsonAsync<MoviesResponse>();
         moviesResponse!.Items.Single().Should().BeEquivalentTo(createdMovie);
+        
+        // Cleanup resources
+        await _client.DeleteAsync($"{ApiEndpoints.Movies.Create}/{createdMovie!.Id}"); // TODO: Should be deleted after real DB implementation???
     }
 
-    // [Fact]
-    // public async Task GetAll_ReturnsEmptyItems_WhenNoMoviesExist()
-    // {
-    //     var response = await _client.GetAsync(ApiEndpoints.Movies.GetAll);
-    //
-    //     response.StatusCode.Should().Be(HttpStatusCode.OK);
-    //     var moviesResponse = await response.Content.ReadFromJsonAsync<MoviesResponse>();
-    //     moviesResponse!.Items.Should().BeEmpty();
-    // }
+    [Fact]
+    public async Task GetAll_ReturnsEmptyItems_WhenNoMoviesExist()
+    {
+        var response = await _client.GetAsync(ApiEndpoints.Movies.GetAll);
+    
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        var moviesResponse = await response.Content.ReadFromJsonAsync<MoviesResponse>();
+        moviesResponse!.Items.Should().BeEmpty();
+    }
 }

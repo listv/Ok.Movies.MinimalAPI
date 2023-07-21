@@ -20,7 +20,7 @@ public class CreateMoviesControllerTests : IClassFixture<TestApiFactory>
     public async Task Create_CreatesMovie_WhenDataIsValid()
     {
         // Arrange
-        var movie = MovieFaker.CreateMovieRequestGenerator().Generate();
+        var movie = new CreateMovieRequestFaker().Generate();
 
         // Act
         var response = await _client.PostAsJsonAsync(ApiEndpoints.Movies.Create, movie);

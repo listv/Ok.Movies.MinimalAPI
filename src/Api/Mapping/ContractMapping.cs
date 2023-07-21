@@ -17,6 +17,17 @@ public static class ContractMapping
         };
     }
 
+    public static Movie MapToMovie(this UpdateMovieRequest request, Guid id)
+    {
+        return new Movie
+        {
+            Id = id,
+            Genres = (List<string>)request.Genres,
+            Title = request.Title,
+            YearOfRelease = request.YearOfRelease
+        };
+    }
+
     public static MovieResponse MapToResponse(this Movie movie)
     {
         return new MovieResponse
@@ -24,6 +35,7 @@ public static class ContractMapping
             Genres = movie.Genres,
             Id = movie.Id,
             Title = movie.Title,
+            Slug = movie.Slug,
             YearOfRelease = movie.YearOfRelease
         };
     }
@@ -33,17 +45,6 @@ public static class ContractMapping
         return new MoviesResponse
         {
             Items = movies.Select(MapToResponse)
-        };
-    }
-
-    public static Movie MapToMovie(this UpdateMovieRequest request, Guid id)
-    {
-        return new Movie
-        {
-            Id = id,
-            Genres = (List<string>)request.Genres,
-            Title = request.Title,
-            YearOfRelease = request.YearOfRelease
         };
     }
 }

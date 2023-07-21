@@ -11,6 +11,8 @@ public class UpdateMoviesControllerTests:IClassFixture<TestApiFactory>
 {
     private readonly HttpClient _client;
 
+    private readonly CreateMovieRequestFaker _createMovieRequestFaker = new();
+
     public UpdateMoviesControllerTests(TestApiFactory factory)
     {
         _client = factory.CreateClient();
@@ -20,11 +22,11 @@ public class UpdateMoviesControllerTests:IClassFixture<TestApiFactory>
     public async Task Update_UpdatesMovie_WhenMovieExistsAndDataIsValid()
     {
         // Arrange
-        var movie = MovieFaker.CreateMovieRequestGenerator().Generate();
+        var movie = _createMovieRequestFaker.Generate();
         var createdResponse = await _client.PostAsJsonAsync(ApiEndpoints.Movies.Create, movie);
         var createdMovie = await createdResponse.Content.ReadFromJsonAsync<MovieResponse>();
 
-        movie = MovieFaker.CreateMovieRequestGenerator().Generate();
+        movie = _createMovieRequestFaker.Generate();
 
         // Act
         var response = await _client.PutAsJsonAsync($"{ApiEndpoints.Movies.Create}/{createdMovie!.Id}", movie);
@@ -39,7 +41,7 @@ public class UpdateMoviesControllerTests:IClassFixture<TestApiFactory>
     public async Task Update_ReturnsNotFound_WhenMovieDoesNotExist()
     {
         // Arrange
-        var movie = MovieFaker.CreateMovieRequestGenerator().Generate();
+        var movie = _createMovieRequestFaker.Generate();
 
         // Act
         var response = await _client.PutAsJsonAsync($"{ApiEndpoints.Movies.Create}/{Guid.NewGuid()}", movie);

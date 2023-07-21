@@ -20,7 +20,7 @@ public class GetMoviesControllerTests:IClassFixture<TestApiFactory>
     public async Task Get_ShouldReturnMovie_WhenMovieExists()
     {
         // Arrange
-        var createMovieRequest = MovieFaker.CreateMovieRequestGenerator().Generate();
+        var createMovieRequest = new CreateMovieRequestFaker().Generate();
         var createdResponse = await _client.PostAsJsonAsync(ApiEndpoints.Movies.Create, createMovieRequest);
         var createdMovie = await createdResponse.Content.ReadFromJsonAsync<MovieResponse>();
 

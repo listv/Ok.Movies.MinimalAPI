@@ -20,7 +20,7 @@ public class DeleteMoviesControllerTests:IClassFixture<TestApiFactory>
     public async Task Delete_ReturnsOk_WhenMovieExists()
     {
         // Arrange
-        var movie = MovieFaker.CreateMovieRequestGenerator().Generate();
+        var movie = new CreateMovieRequestFaker().Generate();
         var createdResponse = await _client.PostAsJsonAsync(ApiEndpoints.Movies.Create, movie);
         var createdMovie = await createdResponse.Content.ReadFromJsonAsync<MovieResponse>();
 

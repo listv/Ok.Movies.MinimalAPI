@@ -30,4 +30,12 @@ public class MovieTests
         // Assert
         movie.Slug.Should().MatchRegex(expected);
     }
+
+    [Fact]
+    public void Slug_ShouldEndWithYearOfRelease_Always()
+    {
+        var movie = _movieGenerator.Generate();
+
+        movie.Slug.Should().EndWith($"-{movie.YearOfRelease}");
+    }
 }

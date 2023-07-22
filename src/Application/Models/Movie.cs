@@ -2,7 +2,7 @@
 
 namespace Application.Models;
 
-public class Movie
+public partial class Movie
 {
     public required Guid Id { get; init; }
     public required string Title { get; set; }
@@ -14,8 +14,11 @@ public class Movie
 
     private string GenerateSlug()
     {
-        var sluggedTitle = Regex.Replace(Title, "[^0-9A-Za-z _-]", string.Empty) // Remove all except alphanumeric symbols, spaces, underscores and hyphens
+        var sluggedTitle = SlugRegex().Replace(Title, string.Empty) // Remove all except alphanumeric symbols, spaces, underscores and hyphens
             .ToLower().Replace(" ", "-");
         return $"{sluggedTitle}-{YearOfRelease}";
     }
+
+    [GeneratedRegex("[^0-9A-Za-z _-]", RegexOptions.NonBacktracking, 5)]
+    private static partial Regex SlugRegex();
 }

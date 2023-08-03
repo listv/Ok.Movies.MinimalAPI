@@ -8,12 +8,13 @@ Log.Information("Server booting up...");
 try
 {
     var builder = WebApplication.CreateBuilder(args);
+    var configuration = builder.Configuration;
 
     builder
         .AddConfigurations()
         .RegisterSerilog();
 
-    builder.Services.AddApplication();
+    builder.Services.AddApplication(configuration);
 
     builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

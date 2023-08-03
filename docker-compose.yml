@@ -1,13 +1,22 @@
-services: 
+version: "3.8"
+
+services:
   app:
     build:
       context: .
     ports:
-      - 5000:80
+      - "5000:80"
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:?}
+    depends_on:
+      db-migrator:
+        condition: service_completed_successfully
+
   builder:
     build:
       context: .
       target: build
+      
   unit-tests:
     build:
       context: .
@@ -16,6 +25,7 @@ services:
       --logger trx;LogFilePrefix=/app/tests/test-results/
       /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
       /p:CoverletOutput='/app/tests/test-results/unit-tests/'
+  
   integration-tests:
     build:
       context: .
@@ -24,3 +34,33 @@ services:
       --logger trx;LogFilePrefix=/app/tests/test-results/
       /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
       /p:CoverletOutput='/app/tests/test-results/integration-tests/'
+  
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: Passw0rd
+      POSTGRES_DB: movies
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: psql -U postgres -c '\l'
+      interval: 1s
+      timeout: 10s
+      retries: 10
+  
+  db-migrator:
+    build:
+      context: .
+      target: build
+    environment:
+      ConnectionStrings__migration-db: Host=db;Database=movies;Username=postgres;Password=Passw0rd;
+    command: /src/Database.Migrations/bin/Release/net7.0/Database.Migrations
+    depends_on: 
+      db:
+        condition: service_healthy
+
+volumes: 
+  pgdata:

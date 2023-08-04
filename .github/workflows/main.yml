@@ -19,7 +19,8 @@ jobs:
           dotnet-version: '7.0.x'
       
       - name: Test connection strings
-        run: echo ${{ CONNECTIONSTRINGS__MIGRATION_DB }}
+        run: |
+          echo "CONNECTIONSTRINGS__MIGRATION_DB: $CONNECTIONSTRINGS__MIGRATION_DB"
       
       - name: Move env file
         run: mv reference.env .env

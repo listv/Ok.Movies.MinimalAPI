@@ -17,7 +17,10 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '7.0.x'
-          
+      
+      - name: Move env file
+        run: mv reference.env .env
+      
       - name: Build solution
         run: docker-compose up --exit-code-from builder builder
         

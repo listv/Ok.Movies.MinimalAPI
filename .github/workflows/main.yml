@@ -18,6 +18,9 @@ jobs:
         with:
           dotnet-version: '7.0.x'
       
+      - name: Test connection strings
+        run: docker-compose up --exit-code-from app app
+      
       - name: Move env file
         run: mv reference.env .env
       

@@ -18,10 +18,6 @@ jobs:
         with:
           dotnet-version: '7.0.x'
       
-      - name: Test connection strings
-        run: |
-          echo "CONNECTIONSTRINGS__TEST_DB: ${{ vars.CONNECTIONSTRINGS__TEST_DB }}"
-      
       - name: Move env file
         run: mv reference.env .env
       

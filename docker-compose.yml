@@ -55,8 +55,8 @@ services:
     build:
       context: .
       target: build
-    environment:
-      ConnectionStrings__migration-db: Host=db;Database=movies;Username=postgres;Password=Passw0rd;
+    env_file:
+      - .env
     command: /src/Database.Migrations/bin/Release/net7.0/Database.Migrations
     depends_on: 
       db:

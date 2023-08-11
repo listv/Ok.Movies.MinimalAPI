@@ -7,11 +7,13 @@ public static class ConfigurationExtensions
         const string configurationsDirectory = "Configurations";
         var environmentName = builder.Environment.EnvironmentName;
         builder.Configuration
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-            .AddJsonFile($"appsettings.{environmentName}.json", optional: true, reloadOnChange: true)
-            .AddJsonFile($"{configurationsDirectory}/logging.json", optional: false, reloadOnChange: true)
-            .AddJsonFile($"{configurationsDirectory}/logging.{environmentName}.json", optional: true, reloadOnChange: true);
-        
+            .AddJsonFile("appsettings.json", false, true)
+            .AddJsonFile($"appsettings.{environmentName}.json", true, true)
+            .AddJsonFile($"{configurationsDirectory}/logging.json", false, true)
+            .AddJsonFile($"{configurationsDirectory}/logging.{environmentName}.json", true, true)
+            .AddUserSecrets(typeof(IApiMarker).Assembly)
+            .AddEnvironmentVariables();
+
         return builder;
     }
 }

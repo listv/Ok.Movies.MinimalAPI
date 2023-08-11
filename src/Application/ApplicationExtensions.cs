@@ -1,6 +1,5 @@
 ﻿using Application.Database;
 using Application.Repositories;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application;

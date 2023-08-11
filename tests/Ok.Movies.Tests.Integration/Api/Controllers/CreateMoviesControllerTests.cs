@@ -29,6 +29,9 @@ public class CreateMoviesControllerTests : IClassFixture<TestApiFactory>
         response.StatusCode.Should().Be(HttpStatusCode.Created);
         var movieResponse = await response.Content.ReadFromJsonAsync<MovieResponse>();
         movieResponse.Should().BeEquivalentTo(movie);
-        response.Headers.Location!.ToString().Should().Be($"http://localhost/{ApiEndpoints.Movies.Create}/{movieResponse!.Id}");
+        response.Headers.Location!.ToString().Should()
+            .Be($"http://localhost/{ApiEndpoints.Movies.Create}/{movieResponse!.Id}");
+
+        await _client.DeleteAsync($"{ApiEndpoints.Movies.Create}/{movieResponse.Id}");
     }
 }

@@ -35,6 +35,8 @@ services:
       --logger trx;LogFilePrefix=/app/tests/test-results/
       /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
       /p:CoverletOutput='/app/tests/test-results/integration-tests/'
+    environment:
+      - TESTCONTAINERS_HOST_OVERRIDE=host.docker.internal # Needed in Docker Desktop (Windows), needs to be removed on linux hosts. Can be done with a override compose file.
     container_name: myproject.authentication.api.tests
 
   #  integration-tests:

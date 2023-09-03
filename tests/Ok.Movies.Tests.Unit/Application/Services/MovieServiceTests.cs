@@ -1,9 +1,10 @@
 ﻿using Application.Models;
 using Application.Repositories;
 using Application.Services;
-using Bogus;
 using FluentAssertions;
+using FluentValidation;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NSubstitute.ReturnsExtensions;
 using Xunit;
 
@@ -13,16 +14,17 @@ public class MovieServiceTests
 {
     private readonly MovieService _sut;
     private readonly IMovieRepository _movieRepository = Substitute.For<IMovieRepository>();
+    private readonly IValidator<Movie> _movieValidator = Substitute.For<IValidator<Movie>>();
     private readonly MovieFaker _movieFaker;
 
     public MovieServiceTests()
     {
-        _sut = new MovieService(_movieRepository);
+        _sut = new MovieService(_movieRepository, _movieValidator);
         _movieFaker = new MovieFaker();
     }
 
     [Fact]
-    public async Task CreateAsync_ShouldReturnTrue_WhenMovieCreated()
+    public async Task CreateAsync_ShouldReturnTrue_WhenMovieIsValid()
     {
         // Arrange
         var movie = _movieFaker.Generate();
@@ -36,7 +38,7 @@ public class MovieServiceTests
     }
 
     [Fact]
-    public async Task CreateAsync_ShouldReturnFalse_WhenSomethingWentWrong()
+    public async Task CreateAsync_ShouldReturnFalse_WhenMovieIsValidButNotCreated()
     {
         // Arrange
         var movie = _movieFaker.Generate();
@@ -47,6 +49,22 @@ public class MovieServiceTests
 
         // Assert
         result.Should().BeFalse();
+    }
+
+    [Fact]
+    public async Task CreateAsync_ShouldThrowExceptionAsync_WhenMovieIsInvalid()
+    {
+        // Arrange
+        var invalidMovie = _movieFaker.Generate();
+        _movieValidator.ValidateAndThrowAsync(invalidMovie)
+            .ThrowsAsyncForAnyArgs(_ => throw new ValidationException(string.Empty));
+        
+        // Act
+        var result = async () => await _sut.CreateAsync(invalidMovie);
+        
+        // Assert
+        await result.Should().ThrowExactlyAsync<ValidationException>();
+        await _movieRepository.DidNotReceiveWithAnyArgs().CreateAsync(Arg.Any<Movie>());
     }
 
     [Fact]
@@ -95,11 +113,10 @@ public class MovieServiceTests
     public async Task GetBySlugAsync_ShouldReturnNull_WhenMovieDoesNotExist()
     {
         // Arrange
-        var slug = new Faker().Lorem.Slug();
-        _movieRepository.GetBySlugAsync(Arg.Is(slug)).ReturnsNull();
+        _movieRepository.GetBySlugAsync(Arg.Any<string>()).ReturnsNull();
 
         // Act
-        var result = await _sut.GetBySlugAsync(slug);
+        var result = await _sut.GetBySlugAsync(string.Empty);
 
         // Assert
         result.Should().BeNull();
@@ -133,6 +150,22 @@ public class MovieServiceTests
 
         // Assert
         result.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task UpdateAsync_ShouldThrowValidationException_WhenMovieIsInvalid()
+    {
+        // Arrange
+        var invalidMovie = _movieFaker.Generate();
+        _movieValidator.ValidateAndThrowAsync(invalidMovie)
+            .ThrowsAsyncForAnyArgs(_ => throw new ValidationException(string.Empty));
+
+        // Act
+        var result = async () => await _sut.UpdateAsync(invalidMovie);
+
+        // Assert
+        await result.Should().ThrowExactlyAsync<ValidationException>();
+        await _movieRepository.DidNotReceive().UpdateAsync(Arg.Any<Movie>());
     }
 
     [Fact]

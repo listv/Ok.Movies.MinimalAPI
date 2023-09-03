@@ -1,5 +1,6 @@
 using Api.Configurations;
 using Application;
+using Hellang.Middleware.ProblemDetails;
 using Infrastructure.Logging;
 using Serilog;
 
@@ -15,7 +16,7 @@ try
         .RegisterSerilog();
 
     builder.Services
-        .AddApplication()
+        .AddApplication(builder.Environment)
         .AddDatabase(configuration.GetConnectionString("movies"));
 
     builder.Services.AddControllers();
@@ -35,6 +36,8 @@ try
 
     app.UseAuthorization();
 
+    app.UseProblemDetails();
+    
     app.MapControllers();
 
     app.Run();

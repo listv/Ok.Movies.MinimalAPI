@@ -4,5 +4,5 @@ namespace Application.Database;
 
 public interface IDbConnectionFactory
 {
-    Task<IDbConnection> CreateConnectionAsync();
+    Task<IDbConnection> CreateConnectionAsync(CancellationToken token = default);
 }

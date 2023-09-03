@@ -5,7 +5,6 @@ using Bogus;
 using FluentAssertions;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
-using Ok.Movies.Tests.Unit.Application.Models;
 using Xunit;
 
 namespace Ok.Movies.Tests.Unit.Application.Services;

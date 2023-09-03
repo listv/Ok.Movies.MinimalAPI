@@ -1,0 +1,15 @@
+using Application.Models;
+using Bogus;
+
+namespace Ok.Movies.Tests.Unit.Application.Models;
+
+public sealed class MovieFaker : Faker<Movie>
+{
+    public MovieFaker()
+    {
+        RuleFor(movie => movie.Id, faker => faker.Random.Guid());
+        RuleFor(movie => movie.Genres, faker => faker.Lorem.Words().ToList());
+        RuleFor(movie => movie.Title, faker => faker.Lorem.Word());
+        RuleFor(movie => movie.YearOfRelease, faker => faker.Date.Soon().Year);
+    }
+}

@@ -1,6 +1,4 @@
-﻿using Application.Models;
-using Bogus;
-using Fare;
+﻿using Fare;
 using FluentAssertions;
 using Xunit;
 
@@ -8,11 +6,7 @@ namespace Ok.Movies.Tests.Unit.Application.Models;
 
 public class MovieTests
 {
-    private readonly Faker<Movie> _movieGenerator = new Faker<Movie>()
-        .RuleFor(movie => movie.Id, faker => faker.Random.Guid())
-        .RuleFor(movie => movie.Genres, faker => faker.Lorem.Words().ToList())
-        .RuleFor(movie => movie.Title, faker => faker.Lorem.Word())
-        .RuleFor(movie => movie.YearOfRelease, faker => faker.Date.Soon().Year);
+    private readonly MovieFaker _movieFaker = new();
 
     [Fact]
     public void Slug_ShouldRemoveRestrictedSymbols_WhenTheyPersistInTitle()
@@ -23,7 +17,7 @@ public class MovieTests
         const string expected = "[0-9A-Za-z_-]"; //alphanumeric symbols, underscores and hyphens
 
         // Act
-        var movie = _movieGenerator.Clone()
+        var movie = _movieFaker.Clone()
             .RuleFor(movie1 => movie1.Title, str)
             .Generate();
 
@@ -34,7 +28,7 @@ public class MovieTests
     [Fact]
     public void Slug_ShouldEndWithYearOfRelease_Always()
     {
-        var movie = _movieGenerator.Generate();
+        var movie = _movieFaker.Generate();
 
         movie.Slug.Should().EndWith($"-{movie.YearOfRelease}");
     }

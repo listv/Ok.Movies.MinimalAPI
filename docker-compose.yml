@@ -36,7 +36,7 @@ services:
       /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
       /p:CoverletOutput='/app/tests/test-results/integration-tests/'
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock # Communicate with the Docker daemon from within a container. Needed for run docker testcontainers in docker
   
   db:
     image: postgres:latest

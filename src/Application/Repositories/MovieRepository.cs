@@ -1,6 +1,6 @@
-using Application.Database;
 using Application.Models;
 using Dapper;
+using Infrastructure.Database;
 
 namespace Application.Repositories;
 

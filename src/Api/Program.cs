@@ -9,7 +9,6 @@ Log.Information("Server booting up...");
 try
 {
     var builder = WebApplication.CreateBuilder(args);
-    var configuration = builder.Configuration;
 
     builder
         .AddConfigurations()
@@ -17,8 +16,7 @@ try
 
     builder.Services
         .AddApplication()
-        .AddInfrastructure(builder.Environment)
-        .AddDatabase(configuration.GetConnectionString("movies"));
+        .AddInfrastructure(builder.Environment);
 
     builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

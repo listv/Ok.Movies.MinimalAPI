@@ -1,7 +1,7 @@
 ﻿using Api;
-using Application.Database;
 using Database.Migrations;
 using FluentMigrator.Runner;
+using Infrastructure.Database;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;

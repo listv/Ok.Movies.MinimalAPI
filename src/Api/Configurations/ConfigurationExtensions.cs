@@ -11,6 +11,8 @@ public static class ConfigurationExtensions
             .AddJsonFile($"appsettings.{environmentName}.json", true, true)
             .AddJsonFile($"{configurationsDirectory}/logging.json", false, true)
             .AddJsonFile($"{configurationsDirectory}/logging.{environmentName}.json", true, true)
+            .AddJsonFile($"{configurationsDirectory}/database.json", false, true)
+            .AddJsonFile($"{configurationsDirectory}/database.{environmentName}.json", true, true)
             .AddUserSecrets(typeof(IApiMarker).Assembly)
             .AddEnvironmentVariables();
 

@@ -1,4 +1,5 @@
-﻿using Infrastructure.Middleware;
+﻿using Infrastructure.Database;
+using Infrastructure.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +11,8 @@ public static class InfrastructureExtensions
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IWebHostEnvironment environment)
     {
         return services
-            .AddExceptionMiddleware(environment);
+            .AddExceptionMiddleware(environment)
+            .AddDatabase();
     }
 
     public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder builder)

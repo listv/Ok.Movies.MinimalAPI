@@ -1,5 +1,5 @@
 {
   "Database":{
-    "ConnectionString":""
+    "ConnectionString":"Host=db;database=movies;Port=5432;Username=postgres;Password=Passw0rd;"
   }
 }

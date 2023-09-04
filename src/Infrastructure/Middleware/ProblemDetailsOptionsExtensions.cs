@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using ProblemDetailsOptions = Hellang.Middleware.ProblemDetails.ProblemDetailsOptions;
 
-namespace Application;
+namespace Infrastructure.Middleware;
 
 public static class ProblemDetailsOptionsExtensions
 {
@@ -17,8 +17,8 @@ public static class ProblemDetailsOptionsExtensions
             var errors = ex.Errors
                 .GroupBy(x => x.PropertyName)
                 .ToDictionary(
-                    x => x.Key,
-                    x => x.Select(x => x.ErrorMessage).ToArray());
+                    group => group.Key,
+                    group => group.Select(validationFailure => validationFailure.ErrorMessage).ToArray());
 
             return factory.CreateValidationProblemDetails(ctx, errors, StatusCodes.Status400BadRequest);
         });

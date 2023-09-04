@@ -31,6 +31,8 @@ services:
       context: .
       target: build
       dockerfile: Dockerfile
+    env_file:
+      - .env
     command: dotnet test -c Release tests/Ok.Movies.Tests.Integration/
       --logger trx;LogFilePrefix=/app/tests/test-results/
       /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura

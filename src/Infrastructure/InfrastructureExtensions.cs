@@ -8,11 +8,11 @@ namespace Infrastructure;
 
 public static class InfrastructureExtensions
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IWebHostEnvironment environment, string[] args)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IWebHostEnvironment environment)
     {
         return services
             .AddExceptionMiddleware(environment)
-            .AddDatabase(args);
+            .AddDatabase();
     }
 
     public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder builder)

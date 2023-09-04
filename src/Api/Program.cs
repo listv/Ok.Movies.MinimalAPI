@@ -16,7 +16,7 @@ try
 
     builder.Services
         .AddApplication()
-        .AddInfrastructure(builder.Environment, args);
+        .AddInfrastructure(builder.Environment);
 
     builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

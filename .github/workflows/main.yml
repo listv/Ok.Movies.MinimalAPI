@@ -32,3 +32,5 @@ jobs:
 
       - name: Run integration tests
         run: docker-compose up --exit-code-from integration-tests integration-tests
+        env:
+          DATABASE__CONNECTIONSTRING: ${{ secrets.DATABASE_CONNECTIONSTRING }}

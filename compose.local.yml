@@ -1,0 +1,6 @@
+version: "3.8"
+# To run on local machine you should merge this file with compose.yml. Example: docker-compose -f compose.yml -f compose.local.yml up
+services:
+  integration-tests:
+    environment:
+      - TESTCONTAINERS_HOST_OVERRIDE=host.docker.internal

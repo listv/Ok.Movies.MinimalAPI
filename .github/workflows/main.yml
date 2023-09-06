@@ -19,7 +19,9 @@ jobs:
           dotnet-version: '7.0.x'
       
       - name: Move env file
-        run: mv reference.env .env
+        run: |
+          mv reference.env .env
+          docker-compose -f compose.yml up -d
       
       - name: Build solution
         run: docker-compose up --exit-code-from builder builder

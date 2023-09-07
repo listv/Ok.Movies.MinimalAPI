@@ -22,7 +22,7 @@ jobs:
         run: |
           chmod +x scripts/generate-env-file.sh
           ./scripts/generate-env-file.sh "${{ secrets.DB_CONNECTION_STRING }}"
-        working-directory: ./  # Specify the parent directory containing the 'scripts' directory
+        working-directory: ./
       
       - name: Build solution
         run: docker-compose up --exit-code-from builder builder
@@ -32,5 +32,3 @@ jobs:
 
       - name: Run integration tests
         run: docker-compose up --exit-code-from integration-tests integration-tests
-#        env:
-#          DATABASE__CONNECTIONSTRING: ${{ secrets.DB_CONNECTION_STRING }}

@@ -6,6 +6,6 @@ DATABASE__CONNECTIONSTRING="$1"
 # Add more secrets as needed
 
 # Generate the environment file
-echo "DATABASE__CONNECTIONSTRING=$DATABASE__CONNECTIONSTRING" > generated-env-file.env
-#echo "SECRET_2=$SECRET_2" >> generated-env-file.env
+echo "DATABASE__CONNECTIONSTRING=$DATABASE__CONNECTIONSTRING" > .env
+#echo "SECRET_2=$SECRET_2" >> .env
 # Add more secrets as needed

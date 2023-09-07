@@ -17,15 +17,12 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '7.0.x'
-          
-      - name: Set execute permissions for the script
-        run: |
-          chmod +x scripts/generate-env-file.sh
-        working-directory: ./  # Specify the parent directory containing the 'scripts' directory
       
       - name: Generate env file
         run: |
+          chmod +x scripts/generate-env-file.sh
           ./scripts/generate-env-file.sh "${{ secrets.DB_CONNECTION_STRING }}"
+        working-directory: ./  # Specify the parent directory containing the 'scripts' directory
       
       - name: Build solution
         run: docker-compose up --exit-code-from builder builder

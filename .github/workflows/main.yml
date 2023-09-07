@@ -25,7 +25,7 @@ jobs:
       
       - name: Generate env file
         run: |
-          ./scripts/generate-env-file.sh
+          ./scripts/generate-env-file.sh "${{ secrets.DB_CONNECTION_STRING }}"
       
       - name: Build solution
         run: docker-compose up --exit-code-from builder builder

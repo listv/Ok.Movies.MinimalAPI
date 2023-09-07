@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Fetch GitHub Secrets
-DATABASE__CONNECTIONSTRING="${{ secrets.DB_CONNECTION_STRING }}"
-#SECRET_2="${{ secrets.SECRET_2 }}"
+DATABASE__CONNECTIONSTRING="$1"
+#SECRET_2="$2"
 # Add more secrets as needed
 
 # Generate the environment file

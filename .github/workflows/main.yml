@@ -20,7 +20,7 @@ jobs:
       
       - name: Generate env file
         run: |
-          ./generate-env-file.sh
+          ./scripts/generate-env-file.sh
       
       - name: Build solution
         run: docker-compose up --exit-code-from builder builder

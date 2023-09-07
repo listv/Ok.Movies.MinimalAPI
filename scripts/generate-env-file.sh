@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 
 # Fetch GitHub Secrets
 DATABASE__CONNECTIONSTRING="${{ secrets.DB_CONNECTION_STRING }}"

@@ -17,6 +17,11 @@ jobs:
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '7.0.x'
+          
+      - name: Set execute permissions for the script
+        run: |
+          chmod +x scripts/generate-env-file.sh
+        working-directory: ./scripts  # Specify the directory where the script is located
       
       - name: Generate env file
         run: |

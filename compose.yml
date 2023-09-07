@@ -32,7 +32,7 @@ services:
       target: build
       dockerfile: Dockerfile
     env_file:
-      - .env
+      - generated-env-file.env
 #    environment:
 #      - Database__ConnectionString=${DATABASE__CONNECTIONSTRING}
     command: dotnet test -c Release tests/Ok.Movies.Tests.Integration/

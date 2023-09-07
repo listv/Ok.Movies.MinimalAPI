@@ -21,7 +21,7 @@ jobs:
       - name: Set execute permissions for the script
         run: |
           chmod +x scripts/generate-env-file.sh
-        working-directory: ./scripts  # Specify the directory where the script is located
+        working-directory: ./  # Specify the parent directory containing the 'scripts' directory
       
       - name: Generate env file
         run: |

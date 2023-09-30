@@ -7,6 +7,9 @@ RUN for file in $(ls *.csproj); do mkdir -p ./src/${file%.*}/ && mv $file ./src/
 COPY ./tests/*/*.csproj ./
 RUN for file in $(ls *.csproj); do mkdir -p ./tests/${file%.*}/ && mv $file ./tests/${file%.*}/; done
 
+COPY ./helpers/*/*.csproj ./
+RUN for file in $(ls *.csproj); do mkdir -p ./helpers/${file%.*}/ && mv $file ./helpers/${file%.*}/; done
+
 RUN dotnet restore
 
 COPY . .

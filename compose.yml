@@ -60,8 +60,8 @@ services:
     build:
       context: .
       target: build
-    env_file:
-      - .env
+    environment:
+      ConnectionStrings__migration-db: ${DATABASE__CONNECTIONSTRING}
     command: /src/Database.Migrations/bin/Release/net7.0/Database.Migrations
     depends_on: 
       db:

@@ -62,6 +62,9 @@ services:
       target: build
     environment:
       ConnectionStrings__migration-db: ${DATABASE__CONNECTIONSTRING}
+      Jwt__Key: ${JWT__KEY}
+      Jwt__Audience: ${JWT__AUDIENCE}
+      Jwt__Issuer: ${JWT__ISSUER}
     command: /src/Database.Migrations/bin/Release/net7.0/Database.Migrations
     depends_on: 
       db:

@@ -1,4 +1,5 @@
-﻿using Infrastructure.Database;
+﻿using Infrastructure.Authentication;
+using Infrastructure.Database;
 using Infrastructure.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,12 +13,16 @@ public static class InfrastructureExtensions
     {
         return services
             .AddExceptionMiddleware(environment)
-            .AddDatabase();
+            .AddDatabase()
+            .AddJwtAuthentication()
+            .AddAuthorization();
     }
 
     public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder builder)
     {
         return builder
+            .UseAuthentication()
+            .UseAuthorization()
             .UseExceptionMiddleware();
     }
 }

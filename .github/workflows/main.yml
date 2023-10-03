@@ -21,7 +21,7 @@ jobs:
       - name: Generate env file
         run: |
           chmod +x scripts/generate-env-file.sh
-          ./scripts/generate-env-file.sh "${{ secrets.DB_CONNECTION_STRING }}" "${{ secrets.DB_PASSWORD }}" "${{ secrets.DB_NAME }}" "${{ secrets.JWT_KEY }}" "${{ secrets.JWT_AUDIENCE }}" "${{ secrets.JWT_ISSUER }}" 
+          ./scripts/generate-env-file.sh "${{ secrets.DB_CONNECTION_STRING }}" "${{ secrets.DB_PASSWORD }}" "${{ secrets.DB_NAME }}" "${{ secrets.JWT_KEY }}" "${{ env.JWT_AUDIENCE }}" "${{ env.JWT_ISSUER }}" 
         working-directory: ./
       
       - name: Build solution

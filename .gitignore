@@ -7,3 +7,5 @@ riderModule.iml
 # IDE related objects
 .idea
 logs*.json
+.env
+*.user

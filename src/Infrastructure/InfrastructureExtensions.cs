@@ -15,7 +15,7 @@ public static class InfrastructureExtensions
             .AddExceptionMiddleware(environment)
             .AddDatabase()
             .AddJwtAuthentication()
-            .AddAuthorization();
+            .AddAppAuthorization();
     }
 
     public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder builder)

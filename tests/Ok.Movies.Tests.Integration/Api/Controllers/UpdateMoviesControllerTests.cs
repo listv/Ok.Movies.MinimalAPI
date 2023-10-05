@@ -1,35 +1,42 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using System.Security.Claims;
 using Api;
+using Bogus;
+using Contracts.Requests;
 using Contracts.Responses;
 using FluentAssertions;
+using Infrastructure.Authentication;
+using Ok.Movies.Tests.Integration.Core;
 using Xunit;
 
 namespace Ok.Movies.Tests.Integration.Api.Controllers;
 
 public class UpdateMoviesControllerTests:IClassFixture<TestApiFactory>
 {
-    private readonly HttpClient _client;
+    private readonly TestApiFactory _apiFactory;
 
     private readonly CreateMovieRequestFaker _createMovieRequestFaker = new();
 
-    public UpdateMoviesControllerTests(TestApiFactory factory)
+    public UpdateMoviesControllerTests(TestApiFactory apiFactory)
     {
-        _client = factory.CreateClient();
+        _apiFactory = apiFactory;
     }
 
     [Fact]
-    public async Task Update_UpdatesMovie_WhenMovieExistsAndDataIsValid()
+    public async Task Update_ShouldUpdatesMovie_WhenAuthenticatedAndAuthorizedAndMovieExistsAndDataIsValid()
     {
         // Arrange
         var movie = _createMovieRequestFaker.Generate();
-        var createdResponse = await _client.PostAsJsonAsync(ApiEndpoints.Movies.Create, movie);
+        var client = _apiFactory.CreateAndConfigureClient(
+            new Claim(AuthConstants.TrustedMemberClaimName, "true"));
+        var createdResponse = await client.PostAsJsonAsync(ApiEndpoints.Movies.Create, movie);
         var createdMovie = await createdResponse.Content.ReadFromJsonAsync<MovieResponse>();
 
         movie = _createMovieRequestFaker.Generate();
 
         // Act
-        var response = await _client.PutAsJsonAsync($"{ApiEndpoints.Movies.Create}/{createdMovie!.Id}", movie);
+        var response = await client.PutAsJsonAsync($"{ApiEndpoints.Movies.Create}/{createdMovie!.Id}", movie);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -38,14 +45,65 @@ public class UpdateMoviesControllerTests:IClassFixture<TestApiFactory>
     }
 
     [Fact]
-    public async Task Update_ReturnsNotFound_WhenMovieDoesNotExist()
+    public async Task Update_ShouldReturnUnauthorized_WhenNotAuthenticated()
     {
         // Arrange
         var movie = _createMovieRequestFaker.Generate();
+        var client = _apiFactory.CreateClient();
 
         // Act
-        var response = await _client.PutAsJsonAsync($"{ApiEndpoints.Movies.Create}/{Guid.NewGuid()}", movie);
+        var response = await client.PutAsJsonAsync($"{ApiEndpoints.Movies.Create}/{new Faker().Random.Guid()}", movie);
 
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+    }
+
+    [Fact]
+    public async Task Update_ShouldReturnForbidden_WhenAuthenticatedButNotAuthorized()
+    {
+        // Arrange
+        var movie = _createMovieRequestFaker.Generate();
+        var client = _apiFactory.CreateAndConfigureClient(
+            new Claim(AuthConstants.TrustedMemberClaimName, "false"));
+
+        // Act
+        var response = await client.PutAsJsonAsync($"{ApiEndpoints.Movies.Create}/{new Faker().Random.Guid()}", movie);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
+    }
+
+    [Fact]
+    public async Task Update_ShouldReturnBadRequest_WhenAuthenticatedAndAuthorizedButDataIsInvalid()
+    {
+        // Arrange
+        var movie = new UpdateMovieRequest
+        {
+            Title = string.Empty,
+            YearOfRelease = 0,
+            Genres = Enumerable.Empty<string>()
+        };
+        var client = _apiFactory.CreateAndConfigureClient(
+            new Claim(AuthConstants.TrustedMemberClaimName, "true"));
+
+        // Act
+        var response = await client.PutAsJsonAsync($"{ApiEndpoints.Movies.Create}/{Guid.NewGuid()}", movie);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
+
+    [Fact]
+    public async Task Update_ShouldReturnNotFound_WhenAuthenticatedAndAuthorizedButMovieDoesNotExist()
+    {
+        // Arrange
+        var movie = _createMovieRequestFaker.Generate();
+        var client = _apiFactory.CreateAndConfigureClient(
+            new Claim(AuthConstants.TrustedMemberClaimName, "true"));
+    
+        // Act
+        var response = await client.PutAsJsonAsync($"{ApiEndpoints.Movies.Create}/{Guid.NewGuid()}", movie);
+    
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }

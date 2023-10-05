@@ -1,17 +1,21 @@
-﻿using Api;
+﻿using System.Net.Http.Headers;
+using System.Security.Claims;
+using Api;
 using Database.Migrations;
 using FluentMigrator.Runner;
 using Infrastructure.Database;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Testcontainers.PostgreSql;
 using Xunit;
 
-namespace Ok.Movies.Tests.Integration.Api;
+namespace Ok.Movies.Tests.Integration.Core;
 
 public class TestApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLifetime
 {
@@ -40,6 +44,17 @@ public class TestApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLifetime
             using var scope = serviceProvider.CreateScope();
             var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
             runner.MigrateUp();
+
+            services.Configure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, options =>
+            {
+                var config = new OpenIdConnectConfiguration
+                {
+                    Issuer = MockJwtTokens.Issuer
+                };
+
+                config.SigningKeys.Add(MockJwtTokens.SecurityKey);
+                options.Configuration = config;
+            });
         });
     }
 
@@ -51,5 +66,19 @@ public class TestApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLifetime
     public new async Task DisposeAsync()
     {
         await _dbContainer.DisposeAsync().ConfigureAwait(false);
+    }
+
+    public HttpClient CreateAndConfigureClient(params Claim[] claims)
+    {
+        var client = CreateClient(new WebApplicationFactoryClientOptions
+        {
+            AllowAutoRedirect = false
+        });
+        
+        client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme,
+                MockJwtTokens.GenerateJwtToken(claims));
+
+        return client;
     }
 }

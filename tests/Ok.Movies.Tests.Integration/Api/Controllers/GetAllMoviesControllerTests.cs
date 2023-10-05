@@ -1,8 +1,11 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using System.Security.Claims;
 using Api;
 using Contracts.Responses;
 using FluentAssertions;
+using Infrastructure.Authentication;
+using Ok.Movies.Tests.Integration.Core;
 using Xunit;
 
 namespace Ok.Movies.Tests.Integration.Api.Controllers;
@@ -10,9 +13,11 @@ namespace Ok.Movies.Tests.Integration.Api.Controllers;
 public class GetAllMoviesControllerTests:IClassFixture<TestApiFactory>
 {
     private readonly HttpClient _client;
+    private readonly TestApiFactory _apiFactory;
 
     public GetAllMoviesControllerTests(TestApiFactory apiFactory)
     {
+        _apiFactory = apiFactory;
         _client = apiFactory.CreateClient();
     }
 
@@ -21,7 +26,10 @@ public class GetAllMoviesControllerTests:IClassFixture<TestApiFactory>
     {
         // Arrange
         var movie = new CreateMovieRequestFaker().Generate();
-        var createdResponse = await _client.PostAsJsonAsync(ApiEndpoints.Movies.Create, movie);
+        var authorizedClient = _apiFactory.CreateAndConfigureClient(
+            new Claim(AuthConstants.TrustedMemberClaimName, "true"));
+        
+        var createdResponse = await authorizedClient.PostAsJsonAsync(ApiEndpoints.Movies.Create, movie);
         var createdMovie = await createdResponse.Content.ReadFromJsonAsync<MovieResponse>();
 
         // Act
@@ -33,7 +41,9 @@ public class GetAllMoviesControllerTests:IClassFixture<TestApiFactory>
         moviesResponse!.Items.Single().Should().BeEquivalentTo(createdMovie);
         
         // Cleanup resources
-        await _client.DeleteAsync($"{ApiEndpoints.Movies.Create}/{createdMovie!.Id}"); // TODO: Should be deleted after real DB implementation???
+        var deleteClient = _apiFactory.CreateAndConfigureClient(
+            new Claim(AuthConstants.AdminUserClaimName, "true"));
+        await deleteClient.DeleteAsync($"{ApiEndpoints.Movies.Create}/{createdMovie!.Id}");
     }
 
     [Fact]

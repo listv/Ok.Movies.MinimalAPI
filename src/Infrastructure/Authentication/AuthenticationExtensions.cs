@@ -44,4 +44,18 @@ public static class AuthenticationExtensions
         });
         return services;
     }
+
+    public static IServiceCollection AddAppAuthorization(this IServiceCollection services)
+    {
+        return services.AddAuthorization(options =>
+        {
+            options.AddPolicy(AuthConstants.AdminUserPolicyName,
+                policy => policy.RequireClaim(AuthConstants.AdminUserClaimName, "true"));
+
+            options.AddPolicy(AuthConstants.TrustedMemberPolicyName,
+                policy => policy.RequireAssertion(c =>
+                    c.User.HasClaim(claim => claim is { Type: AuthConstants.AdminUserClaimName, Value: "true" }) ||
+                    c.User.HasClaim(claim => claim is { Type: AuthConstants.TrustedMemberClaimName, Value: "true" })));
+        });
+    }
 }

@@ -1,9 +1,12 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using System.Security.Claims;
 using Api;
 using Bogus;
 using Contracts.Responses;
 using FluentAssertions;
+using Infrastructure.Authentication;
+using Ok.Movies.Tests.Integration.Core;
 using Xunit;
 
 namespace Ok.Movies.Tests.Integration.Api.Controllers;
@@ -11,10 +14,13 @@ namespace Ok.Movies.Tests.Integration.Api.Controllers;
 public class GetMoviesControllerTests:IClassFixture<TestApiFactory>
 {
     private readonly HttpClient _client;
+    private readonly HttpClient _authorizedClient;
 
     public GetMoviesControllerTests(TestApiFactory apiFactory)
     {
         _client = apiFactory.CreateClient();
+        _authorizedClient = apiFactory.CreateAndConfigureClient(
+            new Claim(AuthConstants.TrustedMemberClaimName, "true"));
     }
 
     [Fact]
@@ -22,7 +28,7 @@ public class GetMoviesControllerTests:IClassFixture<TestApiFactory>
     {
         // Arrange
         var createMovieRequest = new CreateMovieRequestFaker().Generate();
-        var createdResponse = await _client.PostAsJsonAsync(ApiEndpoints.Movies.Create, createMovieRequest);
+        var createdResponse = await _authorizedClient.PostAsJsonAsync(ApiEndpoints.Movies.Create, createMovieRequest);
         var createdMovie = await createdResponse.Content.ReadFromJsonAsync<MovieResponse>();
 
         // Act
@@ -39,7 +45,7 @@ public class GetMoviesControllerTests:IClassFixture<TestApiFactory>
     {
         // Arrange
         var createMovieRequest = new CreateMovieRequestFaker().Generate();
-        var createdResponse = await _client.PostAsJsonAsync(ApiEndpoints.Movies.Create, createMovieRequest);
+        var createdResponse = await _authorizedClient.PostAsJsonAsync(ApiEndpoints.Movies.Create, createMovieRequest);
         var createdMovie = await createdResponse.Content.ReadFromJsonAsync<MovieResponse>();
 
         // Act

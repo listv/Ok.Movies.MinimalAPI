@@ -9,7 +9,7 @@ using Infrastructure.Authentication;
 using Ok.Movies.Tests.Integration.Core;
 using Xunit;
 
-namespace Ok.Movies.Tests.Integration.Api.Controllers;
+namespace Ok.Movies.Tests.Integration.Api.Controllers.Movies;
 
 public class CreateMoviesControllerTests : IClassFixture<TestApiFactory>
 {

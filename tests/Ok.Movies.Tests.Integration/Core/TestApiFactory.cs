@@ -68,13 +68,19 @@ public class TestApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLifetime
         await _dbContainer.DisposeAsync().ConfigureAwait(false);
     }
 
-    public HttpClient CreateAndConfigureClient(params Claim[] claims)
+    public HttpClient CreateAndConfigureClient(params Claim[] paramClaims)
     {
         var client = CreateClient(new WebApplicationFactoryClientOptions
         {
             AllowAutoRedirect = false
         });
-        
+
+        var claims = new List<Claim>(paramClaims);
+        if (claims.TrueForAll(claim => claim.Type != "userid"))
+        {
+            claims.Add(new Claim("userid", Guid.NewGuid().ToString()));
+        }
+
         client.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme,
                 MockJwtTokens.GenerateJwtToken(claims));

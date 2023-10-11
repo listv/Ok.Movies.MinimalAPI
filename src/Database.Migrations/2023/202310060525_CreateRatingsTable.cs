@@ -16,7 +16,7 @@ public class CreateRatingsTable : Migration
     {
         Create.Table(RatingsTableName)
             .WithColumn(UserIdColumName).AsGuid()
-            .WithColumn(MovieIdColumName).AsGuid().ForeignKey(MoviesTableName, IdColumName)
+            .WithColumn(MovieIdColumName).AsGuid().ForeignKey(MoviesTableName, IdColumName).OnDeleteOrUpdate(System.Data.Rule.Cascade)
             .WithColumn(RatingColumName).AsInt32().NotNullable();
 
         Create.PrimaryKey("PK_ratings_Id")

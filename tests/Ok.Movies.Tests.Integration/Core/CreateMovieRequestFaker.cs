@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using Contracts.Requests;
 
-namespace Ok.Movies.Tests.Integration.Api.Controllers;
+namespace Ok.Movies.Tests.Integration.Core;
 
 public sealed class CreateMovieRequestFaker:Faker<CreateMovieRequest>
 {

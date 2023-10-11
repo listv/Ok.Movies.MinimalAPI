@@ -10,7 +10,7 @@ using Infrastructure.Authentication;
 using Ok.Movies.Tests.Integration.Core;
 using Xunit;
 
-namespace Ok.Movies.Tests.Integration.Api.Controllers;
+namespace Ok.Movies.Tests.Integration.Api.Controllers.Movies;
 
 public class UpdateMoviesControllerTests:IClassFixture<TestApiFactory>
 {
@@ -36,7 +36,7 @@ public class UpdateMoviesControllerTests:IClassFixture<TestApiFactory>
         movie = _createMovieRequestFaker.Generate();
 
         // Act
-        var response = await client.PutAsJsonAsync($"{ApiEndpoints.Movies.Create}/{createdMovie!.Id}", movie);
+        var response = await client.PutAsJsonAsync($"{ApiEndpoints.Movies.Base}/{createdMovie!.Id}", movie);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
@@ -52,7 +52,7 @@ public class UpdateMoviesControllerTests:IClassFixture<TestApiFactory>
         var client = _apiFactory.CreateClient();
 
         // Act
-        var response = await client.PutAsJsonAsync($"{ApiEndpoints.Movies.Create}/{new Faker().Random.Guid()}", movie);
+        var response = await client.PutAsJsonAsync($"{ApiEndpoints.Movies.Base}/{Guid.NewGuid()}", movie);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
@@ -67,7 +67,7 @@ public class UpdateMoviesControllerTests:IClassFixture<TestApiFactory>
             new Claim(AuthConstants.TrustedMemberClaimName, "false"));
 
         // Act
-        var response = await client.PutAsJsonAsync($"{ApiEndpoints.Movies.Create}/{new Faker().Random.Guid()}", movie);
+        var response = await client.PutAsJsonAsync($"{ApiEndpoints.Movies.Base}/{new Faker().Random.Guid()}", movie);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
@@ -87,7 +87,7 @@ public class UpdateMoviesControllerTests:IClassFixture<TestApiFactory>
             new Claim(AuthConstants.TrustedMemberClaimName, "true"));
 
         // Act
-        var response = await client.PutAsJsonAsync($"{ApiEndpoints.Movies.Create}/{Guid.NewGuid()}", movie);
+        var response = await client.PutAsJsonAsync($"{ApiEndpoints.Movies.Base}/{Guid.NewGuid()}", movie);
 
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -102,7 +102,7 @@ public class UpdateMoviesControllerTests:IClassFixture<TestApiFactory>
             new Claim(AuthConstants.TrustedMemberClaimName, "true"));
     
         // Act
-        var response = await client.PutAsJsonAsync($"{ApiEndpoints.Movies.Create}/{Guid.NewGuid()}", movie);
+        var response = await client.PutAsJsonAsync($"{ApiEndpoints.Movies.Base}/{Guid.NewGuid()}", movie);
     
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);

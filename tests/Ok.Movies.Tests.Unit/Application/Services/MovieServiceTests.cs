@@ -14,12 +14,13 @@ public class MovieServiceTests
 {
     private readonly MovieService _sut;
     private readonly IMovieRepository _movieRepository = Substitute.For<IMovieRepository>();
+    private readonly IRatingRepository _ratingRepository = Substitute.For<IRatingRepository>();
     private readonly IValidator<Movie> _movieValidator = Substitute.For<IValidator<Movie>>();
     private readonly MovieFaker _movieFaker;
 
     public MovieServiceTests()
     {
-        _sut = new MovieService(_movieRepository, _movieValidator);
+        _sut = new MovieService(_movieRepository, _ratingRepository, _movieValidator);
         _movieFaker = new MovieFaker();
     }
 
@@ -58,10 +59,10 @@ public class MovieServiceTests
         var invalidMovie = _movieFaker.Generate();
         _movieValidator.ValidateAndThrowAsync(invalidMovie)
             .ThrowsAsyncForAnyArgs(_ => throw new ValidationException(string.Empty));
-        
+
         // Act
         var result = async () => await _sut.CreateAsync(invalidMovie);
-        
+
         // Assert
         await result.Should().ThrowExactlyAsync<ValidationException>();
         await _movieRepository.DidNotReceiveWithAnyArgs().CreateAsync(Arg.Any<Movie>());
@@ -135,8 +136,6 @@ public class MovieServiceTests
         // Assert
         result.Should().BeEquivalentTo(movies);
     }
-    
-    
 
     [Fact]
     public async Task GetAllAsync_ShouldReturnEmptyCollection_WhenThereAreNoMovies()

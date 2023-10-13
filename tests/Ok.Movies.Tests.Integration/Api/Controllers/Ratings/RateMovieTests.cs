@@ -48,7 +48,7 @@ public class RateMovieTests:IClassFixture<RatingTestsFixture>
     }
 
     [Theory]
-    [MemberData(nameof(GetRandomNumbers))]
+    [MemberData(nameof(GetInvalidRating))]
     public async Task RateMovie_ShouldReturnBadRequest_WhenDataIsInvalid(int invalidRatingValue)
     {
         var rateMovieRequest = _requestFaker.Clone()
@@ -77,7 +77,7 @@ public class RateMovieTests:IClassFixture<RatingTestsFixture>
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
 
-    public static IEnumerable<object[]> GetRandomNumbers()
+    public static IEnumerable<object[]> GetInvalidRating()
     {
         yield return new object[] { new Faker().Random.Int(max: 0) };
         yield return new object[] { new Faker().Random.Int(min: 6) };

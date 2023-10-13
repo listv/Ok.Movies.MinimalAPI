@@ -2,6 +2,7 @@
 using System.Net.Http.Json;
 using System.Security.Claims;
 using Api;
+using Bogus;
 using Contracts.Responses;
 using FluentAssertions;
 using Infrastructure.Authentication;
@@ -54,5 +55,17 @@ public class GetAllMoviesControllerTests:IClassFixture<TestApiFactory>
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var moviesResponse = await response.Content.ReadFromJsonAsync<MoviesResponse>();
         moviesResponse!.Items.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task GetAll_ShouldReturnBadRequest_WhenInvalidFilterProvided()
+    {
+        // Arrange
+
+        // Act
+        var response = await _client.GetAsync($"{ApiEndpoints.Movies.GetAll}?year={new Faker().Date.Future().Year}");
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 }

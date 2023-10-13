@@ -7,6 +7,7 @@ using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using NSubstitute.ReturnsExtensions;
 using Xunit;
+using ValidationException = FluentValidation.ValidationException;
 
 namespace Ok.Movies.Tests.Unit.Application.Services;
 
@@ -16,11 +17,14 @@ public class MovieServiceTests
     private readonly IMovieRepository _movieRepository = Substitute.For<IMovieRepository>();
     private readonly IRatingRepository _ratingRepository = Substitute.For<IRatingRepository>();
     private readonly IValidator<Movie> _movieValidator = Substitute.For<IValidator<Movie>>();
+
+    private readonly IValidator<MoviesFilteringOptions> _moviesFilteringOptionsValidator =
+        Substitute.For<IValidator<MoviesFilteringOptions>>();
     private readonly MovieFaker _movieFaker;
 
     public MovieServiceTests()
     {
-        _sut = new MovieService(_movieRepository, _ratingRepository, _movieValidator);
+        _sut = new MovieService(_movieRepository, _ratingRepository, _movieValidator, _moviesFilteringOptionsValidator);
         _movieFaker = new MovieFaker();
     }
 
@@ -128,10 +132,10 @@ public class MovieServiceTests
     {
         // Arrange
         var movies = _movieFaker.Generate(3);
-        _movieRepository.GetAllAsync().Returns(movies);
+        _movieRepository.GetAllAsync(new MoviesFilteringOptions()).ReturnsForAnyArgs(movies);
 
         // Act
-        var result = await _sut.GetAllAsync();
+        var result = await _sut.GetAllAsync(new MoviesFilteringOptions());
 
         // Assert
         result.Should().BeEquivalentTo(movies);
@@ -142,13 +146,29 @@ public class MovieServiceTests
     {
         // Arrange
         var movies = Enumerable.Empty<Movie>();
-        _movieRepository.GetAllAsync().Returns(movies);
+        _movieRepository.GetAllAsync(new MoviesFilteringOptions()).ReturnsForAnyArgs(movies);
 
         // Act
-        var result = await _sut.GetAllAsync();
+        var result = await _sut.GetAllAsync(new MoviesFilteringOptions());
 
         // Assert
         result.Should().BeEmpty();
+    }
+
+    [Fact]
+    public async Task GetAllAsync_ShouldThrowException_WhenFilteringOptionsInvalid()
+    {
+        // Arrange
+        var invalidFilter = new MoviesFilteringOptions();
+        _moviesFilteringOptionsValidator.ValidateAndThrowAsync(invalidFilter)
+            .ThrowsAsyncForAnyArgs(_ => throw new ValidationException(string.Empty));
+
+        // Act
+        Func<Task<IEnumerable<Movie>>> func = async () => await _sut.GetAllAsync(invalidFilter);
+
+        // Assert
+        await func.Should().ThrowAsync<ValidationException>();
+        await _movieRepository.DidNotReceiveWithAnyArgs().GetAllAsync(invalidFilter);
     }
 
     [Fact]

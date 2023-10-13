@@ -10,6 +10,6 @@ public sealed class MovieFaker : Faker<Movie>
         RuleFor(movie => movie.Id, faker => faker.Random.Guid());
         RuleFor(movie => movie.Genres, faker => faker.Lorem.Words().ToList());
         RuleFor(movie => movie.Title, faker => faker.Lorem.Word());
-        RuleFor(movie => movie.YearOfRelease, faker => faker.Date.Soon().Year);
+        RuleFor(movie => movie.YearOfRelease, faker => faker.Date.Past().Year);
     }
 }

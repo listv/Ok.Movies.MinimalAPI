@@ -11,10 +11,10 @@ public class MovieService : IMovieService
     private readonly IRatingRepository _ratingRepository;
 
     private readonly IValidator<Movie> _movieValidator;
-    private readonly IValidator<MoviesFilteringOptions> _moviesFilteringOptionsValidator;
+    private readonly IValidator<GetAllMoviesOptions> _moviesFilteringOptionsValidator;
 
     public MovieService(IMovieRepository movieRepository, IRatingRepository ratingRepository,
-        IValidator<Movie> movieValidator, IValidator<MoviesFilteringOptions> moviesFilteringOptionsValidator)
+        IValidator<Movie> movieValidator, IValidator<GetAllMoviesOptions> moviesFilteringOptionsValidator)
     {
         _movieRepository = movieRepository;
         _ratingRepository = ratingRepository;
@@ -38,7 +38,7 @@ public class MovieService : IMovieService
         return _movieRepository.GetBySlugAsync(slug, userId, token);
     }
 
-    public async Task<IEnumerable<Movie>> GetAllAsync(MoviesFilteringOptions options, CancellationToken token = default)
+    public async Task<IEnumerable<Movie>> GetAllAsync(GetAllMoviesOptions options, CancellationToken token = default)
     {
         await _moviesFilteringOptionsValidator.ValidateAndThrowAsync(options, token);
         return await _movieRepository.GetAllAsync(options, token);
@@ -71,5 +71,10 @@ public class MovieService : IMovieService
     public Task<bool> DeleteByIdAsync(Guid id, CancellationToken token = default)
     {
         return _movieRepository.DeleteByIdAsync(id, token);
+    }
+
+    public Task<int> GetCountAsync(string? title, int? yearOfRelease, CancellationToken token = default)
+    {
+        return _movieRepository.GetCountAsync(title, yearOfRelease, token);
     }
 }

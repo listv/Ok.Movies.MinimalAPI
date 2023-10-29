@@ -18,8 +18,8 @@ public class MovieServiceTests
     private readonly IRatingRepository _ratingRepository = Substitute.For<IRatingRepository>();
     private readonly IValidator<Movie> _movieValidator = Substitute.For<IValidator<Movie>>();
 
-    private readonly IValidator<MoviesFilteringOptions> _moviesFilteringOptionsValidator =
-        Substitute.For<IValidator<MoviesFilteringOptions>>();
+    private readonly IValidator<GetAllMoviesOptions> _moviesFilteringOptionsValidator =
+        Substitute.For<IValidator<GetAllMoviesOptions>>();
     private readonly MovieFaker _movieFaker;
 
     public MovieServiceTests()
@@ -132,10 +132,10 @@ public class MovieServiceTests
     {
         // Arrange
         var movies = _movieFaker.Generate(3);
-        _movieRepository.GetAllAsync(new MoviesFilteringOptions()).ReturnsForAnyArgs(movies);
+        _movieRepository.GetAllAsync(Arg.Any<GetAllMoviesOptions>()).ReturnsForAnyArgs(movies);
 
         // Act
-        var result = await _sut.GetAllAsync(new MoviesFilteringOptions());
+        var result = await _sut.GetAllAsync(new GetAllMoviesOptions());
 
         // Assert
         result.Should().BeEquivalentTo(movies);
@@ -146,10 +146,10 @@ public class MovieServiceTests
     {
         // Arrange
         var movies = Enumerable.Empty<Movie>();
-        _movieRepository.GetAllAsync(new MoviesFilteringOptions()).ReturnsForAnyArgs(movies);
+        _movieRepository.GetAllAsync(new GetAllMoviesOptions()).ReturnsForAnyArgs(movies);
 
         // Act
-        var result = await _sut.GetAllAsync(new MoviesFilteringOptions());
+        var result = await _sut.GetAllAsync(new GetAllMoviesOptions());
 
         // Assert
         result.Should().BeEmpty();
@@ -159,7 +159,7 @@ public class MovieServiceTests
     public async Task GetAllAsync_ShouldThrowException_WhenFilteringOptionsInvalid()
     {
         // Arrange
-        var invalidFilter = new MoviesFilteringOptions();
+        var invalidFilter = new GetAllMoviesOptions();
         _moviesFilteringOptionsValidator.ValidateAndThrowAsync(invalidFilter)
             .ThrowsAsyncForAnyArgs(_ => throw new ValidationException(string.Empty));
 

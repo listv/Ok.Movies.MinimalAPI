@@ -36,7 +36,9 @@ public class MovieValidatorTests
     public async Task Validate_ShouldHaveValidationErrorForId_WhenIdIsEmpty()
     {
         // Arrange
-        var model = _movieFaker.Clone().RuleFor(movie => movie.Id, () => Guid.Empty).Generate();
+        var model = _movieFaker.Clone()
+            .RuleFor(movie => movie.Id, () => Guid.Empty)
+            .Generate();
 
         // Act
         var result = await _sut.TestValidateAsync(model);
@@ -49,7 +51,9 @@ public class MovieValidatorTests
     public async Task Validate_ShouldHaveValidationErrorForGenres_WhenNoGenresProvided()
     {
         // Arrange
-        var model = _movieFaker.Clone().RuleFor(movie => movie.Genres, () => new List<string>()).Generate();
+        var model = _movieFaker.Clone()
+            .RuleFor(movie => movie.Genres, () => new List<string>())
+            .Generate();
 
         // Act
         var result = await _sut.TestValidateAsync(model);
@@ -65,7 +69,9 @@ public class MovieValidatorTests
     public async Task Validate_ShouldHaveValidationErrorForTitle_WhenNoTitleProvided(string title)
     {
         // Arrange
-        var model = _movieFaker.Clone().RuleFor(movie => movie.Title, () => title).Generate();
+        var model = _movieFaker.Clone()
+            .RuleFor(movie => movie.Title, () => title)
+            .Generate();
 
         // Act
         var result = await _sut.TestValidateAsync(model);
@@ -78,7 +84,9 @@ public class MovieValidatorTests
     public async Task Validate_ShouldHaveValidationErrorForYearOfRelease_WhenYearOfReleaseIsInFuture()
     {
         // Arrange
-        var model = _movieFaker.Clone().RuleFor(movie => movie.YearOfRelease, () => DateTime.UtcNow.Year + 1).Generate();
+        var model = _movieFaker.Clone()
+            .RuleFor(movie => movie.YearOfRelease, () => DateTime.UtcNow.Year + 1)
+            .Generate();
 
         // Act
         var result = await _sut.TestValidateAsync(model);

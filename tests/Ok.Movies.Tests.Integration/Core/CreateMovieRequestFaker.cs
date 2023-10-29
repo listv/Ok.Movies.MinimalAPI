@@ -9,6 +9,6 @@ public sealed class CreateMovieRequestFaker:Faker<CreateMovieRequest>
     {
         RuleFor(request => request.Title, faker => faker.Lorem.Sentence());
         RuleFor(request => request.Genres, faker => faker.Lorem.Words().ToList());
-        RuleFor(request => request.YearOfRelease, faker => faker.Date.Past().Year);
+        RuleFor(request => request.YearOfRelease, faker => faker.Date.Past(10).Year);
     }
 }

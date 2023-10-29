@@ -25,8 +25,7 @@ public class CreateMoviesControllerTests : IClassFixture<TestApiFactory>
     {
         // Arrange
         var movie = new CreateMovieRequestFaker().Generate();
-        var client = _apiFactory.CreateAndConfigureClient(
-            new Claim(AuthConstants.TrustedMemberClaimName, "true"));
+        var client = GetAuthenticatedClientWithTrustedMemberClaim();
 
         // Act
         var response = await client.PostAsJsonAsync(ApiEndpoints.Movies.Create, movie);
@@ -37,7 +36,7 @@ public class CreateMoviesControllerTests : IClassFixture<TestApiFactory>
         var movieResponse = await response.Content.ReadFromJsonAsync<MovieResponse>();
         movieResponse.Should().BeEquivalentTo(movie);
         response.Headers.Location!.ToString().Should()
-            .Be($"http://localhost/{ApiEndpoints.Movies.Create}/{movieResponse!.Id}");
+            .Be($"http://localhost/{ApiEndpoints.Movies.Base}/{movieResponse!.Id}");
     }
 
     [Fact]
@@ -45,7 +44,7 @@ public class CreateMoviesControllerTests : IClassFixture<TestApiFactory>
     {
         // Arrange
         var movie = new CreateMovieRequestFaker().Generate();
-        var client = _apiFactory.CreateClient();
+        var client = GetNonAuthenticatedClient();
 
         // Act
         var response = await client.PostAsJsonAsync(ApiEndpoints.Movies.Create, movie);
@@ -59,8 +58,7 @@ public class CreateMoviesControllerTests : IClassFixture<TestApiFactory>
     {
         // Arrange
         var movie = new CreateMovieRequestFaker().Generate();
-        var client = _apiFactory.CreateAndConfigureClient(
-            new Claim(AuthConstants.TrustedMemberClaimName, "false"));
+        var client = GetAuthenticatedButNotAuthorizedClient();
 
         // Act
         var response = await client.PostAsJsonAsync(ApiEndpoints.Movies.Create, movie);
@@ -68,8 +66,6 @@ public class CreateMoviesControllerTests : IClassFixture<TestApiFactory>
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.Forbidden);
     }
-
-
 
     [Fact]
     public async Task Create_ShouldReturnBadRequest_WhenAuthenticatedAndAuthorizedButDataIsInvalid()
@@ -81,8 +77,7 @@ public class CreateMoviesControllerTests : IClassFixture<TestApiFactory>
             YearOfRelease = 0,
             Genres = Enumerable.Empty<string>()
         };
-        var client = _apiFactory.CreateAndConfigureClient(
-            new Claim(AuthConstants.TrustedMemberClaimName, "true"));
+        var client = GetAuthenticatedClientWithTrustedMemberClaim();
 
         // Act
         var response = await client.PostAsJsonAsync(ApiEndpoints.Movies.Create, movie);
@@ -90,4 +85,14 @@ public class CreateMoviesControllerTests : IClassFixture<TestApiFactory>
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
+
+    private HttpClient GetAuthenticatedClientWithTrustedMemberClaim() =>
+        _apiFactory.CreateAndConfigureClient(
+            new Claim(AuthConstants.TrustedMemberClaimName, "true"));
+
+    private HttpClient GetNonAuthenticatedClient() =>
+        _apiFactory.CreateClient();
+
+    private HttpClient GetAuthenticatedButNotAuthorizedClient() =>
+        _apiFactory.CreateAndConfigureClient();
 }

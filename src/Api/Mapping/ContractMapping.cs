@@ -42,11 +42,14 @@ public static class ContractMapping
         };
     }
 
-    public static MoviesResponse MapToResponse(this IEnumerable<Movie> movies)
+    public static MoviesResponse MapToResponse(this IEnumerable<Movie> movies, int page, int pageSize, int totalCount)
     {
         return new MoviesResponse
         {
-            Items = movies.Select(MapToResponse)
+            Items = movies.Select(MapToResponse),
+            Page = page,
+            PageSize = pageSize,
+            TotalCount = totalCount
         };
     }
 
@@ -60,16 +63,23 @@ public static class ContractMapping
         });
     }
 
-    public static MoviesFilteringOptions MapToOptions(this MoviesFilteringRequest request)
+    public static GetAllMoviesOptions MapToOptions(this GetAllMoviesRequest request)
     {
-        return new MoviesFilteringOptions
+        return new GetAllMoviesOptions
         {
             YearOfRelease = request.Year,
-            Title = request.Title
+            Title = request.Title,
+            SortField = request.SortBy?.Trim('+', '-').Replace('-', '_'),
+            SortOrder = request.SortBy is null ? SortOrder.Unsorted :
+                GetSortOrder(request.SortBy),
+            Page = request.Page,
+            PageSize = request.PageSize
         };
     }
 
-    public static MoviesFilteringOptions WithUser(this MoviesFilteringOptions options, Guid? userId)
+    private static SortOrder GetSortOrder(string sortBy) => sortBy.StartsWith('-') ? SortOrder.Descending : SortOrder.Ascending;
+
+    public static GetAllMoviesOptions WithUser(this GetAllMoviesOptions options, Guid? userId)
     {
         options.UserId = userId;
         return options;

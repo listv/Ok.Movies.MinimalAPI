@@ -44,7 +44,7 @@ public class MoviesController : ControllerBase
     }
 
     [HttpGet(ApiEndpoints.Movies.GetAll)]
-    public async Task<IActionResult> GetAll([FromQuery]MoviesFilteringRequest request, CancellationToken token = default)
+    public async Task<IActionResult> GetAll([FromQuery]GetAllMoviesRequest request, CancellationToken token = default)
     {
         var userId = HttpContext.GetUserId();
 
@@ -52,8 +52,9 @@ public class MoviesController : ControllerBase
             .WithUser(userId);
 
         var movies = await _movieService.GetAllAsync(options, token);
+        var movieCount = await _movieService.GetCountAsync(options.Title, options.YearOfRelease, token);
 
-        var moviesResponse = movies.MapToResponse();
+        var moviesResponse = movies.MapToResponse(request.Page, request.PageSize, movieCount);
 
         return Ok(moviesResponse);
     }

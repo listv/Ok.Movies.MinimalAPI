@@ -1,6 +1,7 @@
 ﻿using Infrastructure.Authentication;
 using Infrastructure.Database;
 using Infrastructure.Middleware;
+using Infrastructure.Versioning;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,7 +16,8 @@ public static class InfrastructureExtensions
             .AddExceptionMiddleware(environment)
             .AddDatabase()
             .AddJwtAuthentication()
-            .AddAppAuthorization();
+            .AddAppAuthorization()
+            .AddVersioning();
     }
 
     public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder builder)

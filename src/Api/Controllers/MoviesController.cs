@@ -1,5 +1,6 @@
 ﻿using Api.Mapping;
 using Application.Services;
+using Asp.Versioning;
 using Contracts.Requests;
 using Infrastructure.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers;
 
 [ApiController]
+[ApiVersion(1.0)]
 public class MoviesController : ControllerBase
 {
     private readonly IMovieService _movieService;
@@ -16,7 +18,6 @@ public class MoviesController : ControllerBase
     {
         _movieService = movieService;
     }
-
 
     [Authorize(AuthConstants.TrustedMemberPolicyName)]
     [HttpPost(ApiEndpoints.Movies.Create)]
@@ -44,7 +45,7 @@ public class MoviesController : ControllerBase
     }
 
     [HttpGet(ApiEndpoints.Movies.GetAll)]
-    public async Task<IActionResult> GetAll([FromQuery]GetAllMoviesRequest request, CancellationToken token = default)
+    public async Task<IActionResult> GetAll([FromQuery] GetAllMoviesRequest request, CancellationToken token = default)
     {
         var userId = HttpContext.GetUserId();
 

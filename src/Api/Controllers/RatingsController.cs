@@ -1,5 +1,6 @@
 ﻿using Api.Mapping;
 using Application.Services;
+using Asp.Versioning;
 using Contracts.Requests;
 using Infrastructure.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers;
 
 [ApiController]
+[ApiVersion(1.0)]
 public class RatingsController : ControllerBase
 {
     private readonly IRatingService _ratingService;

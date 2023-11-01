@@ -35,8 +35,6 @@ public class MoviesController : ControllerBase
 
     [MapToApiVersion(1.0)]
     [HttpGet(ApiEndpoints.Movies.Get)]
-    // [ProducesResponseType(typeof(MovieResponse), StatusCodes.Status200OK)]
-    // [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<MovieResponse>> GetV1([FromRoute] string idOrSlug, CancellationToken token = default)
     {
         var user = HttpContext.GetUserId();
@@ -53,8 +51,6 @@ public class MoviesController : ControllerBase
 
     [MapToApiVersion(2.0)]
     [HttpGet(ApiEndpoints.Movies.Get)]
-    // [ProducesResponseType(typeof(MovieResponse), StatusCodes.Status200OK)]
-    // [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<MovieResponse>> GetV2([FromRoute] string idOrSlug, CancellationToken token = default)
     {
         var user = HttpContext.GetUserId();

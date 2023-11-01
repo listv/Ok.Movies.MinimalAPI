@@ -22,11 +22,8 @@ try
 
     var app = builder.Build();
 
-    app.UseHttpsRedirection();
-
     app.UseInfrastructure();
-
-    app.MapControllers();
+    app.MapEndpoints();
 
     app.Run();
 }

@@ -1,25 +1,31 @@
 ﻿using Infrastructure.Authentication;
 using Infrastructure.Database;
+using Infrastructure.Health;
 using Infrastructure.Middleware;
 using Infrastructure.OpenApi;
 using Infrastructure.Versioning;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure;
 
 public static class InfrastructureExtensions
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IWebHostEnvironment environment)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services,
+        IWebHostEnvironment environment)
     {
-        return services
+        services
             .AddExceptionMiddleware(environment)
             .AddDatabase()
             .AddJwtAuthentication()
             .AddAppAuthorization()
             .AddVersioning()
-            .AddOpenApiDocumentation();
+            .AddOpenApiDocumentation()
+            .AddHealthCheck();
+
+        return services;
     }
 
     public static IApplicationBuilder? UseInfrastructure(this IApplicationBuilder builder)
@@ -28,6 +34,13 @@ public static class InfrastructureExtensions
             .UseAuthentication()
             .UseAuthorization()
             .UseExceptionMiddleware()
-            .UseOpenApiDocumentation().UseAuthorization();
+            .UseOpenApiDocumentation();
+    }
+
+    public static IEndpointRouteBuilder MapEndpoints(this IEndpointRouteBuilder builder)
+    {
+        builder.MapControllers();
+        builder.MapHealthCheck();
+        return builder;
     }
 }

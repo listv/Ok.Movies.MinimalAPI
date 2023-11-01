@@ -1,8 +1,12 @@
+using Api;
 using Api.Configurations;
 using Application;
 using Infrastructure;
 using Infrastructure.Logging;
+using Microsoft.AspNetCore.Mvc;
 using Serilog;
+
+[assembly: ApiConventionType(typeof(MoviesApiConventions))]
 
 StaticLogger.EnsureInitialized(args);
 Log.Information("Server booting up...");
@@ -10,31 +14,18 @@ try
 {
     var builder = WebApplication.CreateBuilder(args);
 
-    builder
-        .AddConfigurations()
-        .RegisterSerilog();
-
-    builder.Services
-        .AddApplication()
-        .AddInfrastructure(builder.Environment);
+    builder.AddConfigurations().RegisterSerilog();
 
     builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    builder.Services.AddInfrastructure(builder.Environment);
+    builder.Services.AddApplication();
 
     var app = builder.Build();
-
-    if (app.Environment.IsDevelopment())
-    {
-        app.UseSwagger();
-        app.UseSwaggerUI();
-    }
 
     app.UseHttpsRedirection();
 
     app.UseInfrastructure();
-    
+
     app.MapControllers();
 
     app.Run();

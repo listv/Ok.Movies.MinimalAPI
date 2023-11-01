@@ -15,7 +15,8 @@ public static class VersioningExtensions
                 x.ReportApiVersions = true;
                 x.ApiVersionReader = new MediaTypeApiVersionReader("api-version");
             })
-            .AddMvc();
+            .AddMvc()
+            .AddApiExplorer();
 
         return services;
     }

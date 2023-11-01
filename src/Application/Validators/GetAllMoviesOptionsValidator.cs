@@ -1,5 +1,4 @@
-﻿using System.Xml.XPath;
-using Application.Models;
+﻿using Application.Models;
 using FluentValidation;
 
 namespace Application.Validators;

@@ -2,6 +2,7 @@
 using Application.Services;
 using Asp.Versioning;
 using Contracts.Requests;
+using Contracts.Responses;
 using Infrastructure.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,7 @@ namespace Api.Controllers;
 
 [ApiController]
 [ApiVersion(1.0)]
+[ApiVersion(2.0)]
 public class MoviesController : ControllerBase
 {
     private readonly IMovieService _movieService;
@@ -21,16 +23,39 @@ public class MoviesController : ControllerBase
 
     [Authorize(AuthConstants.TrustedMemberPolicyName)]
     [HttpPost(ApiEndpoints.Movies.Create)]
-    public async Task<IActionResult> Create([FromBody] CreateMovieRequest request, CancellationToken token = default)
+    [ProducesResponseType(typeof(MovieResponse), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> CreateV1([FromBody] CreateMovieRequest request, CancellationToken token = default)
     {
         var movie = request.MapToMovie();
         await _movieService.CreateAsync(movie, token);
         var response = movie.MapToResponse();
-        return CreatedAtAction(nameof(Get), new { idOrSlug = response.Id }, response);
+        return CreatedAtAction(nameof(GetV1), new { idOrSlug = response.Id }, response);
     }
 
+    [MapToApiVersion(1.0)]
     [HttpGet(ApiEndpoints.Movies.Get)]
-    public async Task<IActionResult> Get([FromRoute] string idOrSlug, CancellationToken token = default)
+    // [ProducesResponseType(typeof(MovieResponse), StatusCodes.Status200OK)]
+    // [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<MovieResponse>> GetV1([FromRoute] string idOrSlug, CancellationToken token = default)
+    {
+        var user = HttpContext.GetUserId();
+
+        var movie = Guid.TryParse(idOrSlug, out var id)
+            ? await _movieService.GetByIdAsync(id, user, token)
+            : await _movieService.GetBySlugAsync(idOrSlug, user, token);
+
+        if (movie is null) return NotFound();
+
+        var movieResponse = movie.MapToResponse();
+        return Ok(movieResponse);
+    }
+
+    [MapToApiVersion(2.0)]
+    [HttpGet(ApiEndpoints.Movies.Get)]
+    // [ProducesResponseType(typeof(MovieResponse), StatusCodes.Status200OK)]
+    // [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<MovieResponse>> GetV2([FromRoute] string idOrSlug, CancellationToken token = default)
     {
         var user = HttpContext.GetUserId();
 
@@ -45,7 +70,7 @@ public class MoviesController : ControllerBase
     }
 
     [HttpGet(ApiEndpoints.Movies.GetAll)]
-    public async Task<IActionResult> GetAll([FromQuery] GetAllMoviesRequest request, CancellationToken token = default)
+    public async Task<ActionResult<MoviesResponse>> GetAll([FromQuery] GetAllMoviesRequest request, CancellationToken token = default)
     {
         var userId = HttpContext.GetUserId();
 

@@ -1,6 +1,7 @@
 ﻿using Infrastructure.Authentication;
 using Infrastructure.Database;
 using Infrastructure.Middleware;
+using Infrastructure.OpenApi;
 using Infrastructure.Versioning;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,14 +18,16 @@ public static class InfrastructureExtensions
             .AddDatabase()
             .AddJwtAuthentication()
             .AddAppAuthorization()
-            .AddVersioning();
+            .AddVersioning()
+            .AddOpenApiDocumentation();
     }
 
-    public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder builder)
+    public static IApplicationBuilder? UseInfrastructure(this IApplicationBuilder builder)
     {
         return builder
             .UseAuthentication()
             .UseAuthorization()
-            .UseExceptionMiddleware();
+            .UseExceptionMiddleware()
+            .UseOpenApiDocumentation().UseAuthorization();
     }
 }

@@ -1,3 +1,4 @@
+using Bogus;
 using FluentValidation;
 using FluentValidation.TestHelper;
 using Infrastructure.Authentication;
@@ -23,13 +24,25 @@ public class AuthOptionsValidatorTests
         result.ShouldNotHaveAnyValidationErrors();
     }
 
-    
     [Theory]
     [MemberData(nameof(TestDataGenerator.GetEmptyStrings), MemberType = typeof(TestDataGenerator))]
     public void Validate_ShouldHaveValidationErrorForApiKey_WhenApiKeyIsEmpty(string apiKey)
     {
         // Arrange
         var model = new AuthOptions { ApiKey = apiKey };
+
+        // Act
+        var result = _sut.TestValidate(model);
+
+        // Assert
+        result.ShouldHaveValidationErrorFor(options => options.ApiKey);
+    }
+
+    [Fact]
+    public void Validate_ShouldHaveValidationErrorForApiKey_WhenApiKeyIsInvalid()
+    {
+        // Arrange
+        var model = new AuthOptions { ApiKey = new Faker().Lorem.Word() };
 
         // Act
         var result = _sut.TestValidate(model);

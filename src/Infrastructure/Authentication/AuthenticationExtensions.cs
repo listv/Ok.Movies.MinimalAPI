@@ -58,4 +58,9 @@ public static class AuthenticationExtensions
                     c.User.HasClaim(claim => claim is { Type: AuthConstants.TrustedMemberClaimName, Value: "true" })));
         });
     }
+
+    public static IServiceCollection AddApiKeyAuthentication(this IServiceCollection services)
+    {
+        return services.AddScoped<ApiKeyAuthFilter>();
+    }
 }

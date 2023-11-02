@@ -27,7 +27,8 @@ public class MoviesController : ControllerBase
         _cacheStore = cacheStore;
     }
 
-    [Authorize(AuthConstants.TrustedMemberPolicyName)]
+    // [Authorize(AuthConstants.TrustedMemberPolicyName)]
+    [ServiceFilter(typeof(ApiKeyAuthFilter))]
     [HttpPost(ApiEndpoints.Movies.Create)]
     public async Task<ActionResult<MovieResponse>> CreateV1([FromBody] CreateMovieRequest request, CancellationToken token = default)
     {

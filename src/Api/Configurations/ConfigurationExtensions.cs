@@ -15,6 +15,8 @@ public static class ConfigurationExtensions
             .AddJsonFile($"{configurationsDirectory}/database.{environmentName}.json", true, true)
             .AddJsonFile($"{configurationsDirectory}/jwt.json", false, true)
             .AddJsonFile($"{configurationsDirectory}/jwt.{environmentName}.json", true, true)
+            .AddJsonFile($"{configurationsDirectory}/authentication.json", false, true)
+            .AddJsonFile($"{configurationsDirectory}/authentication.{environmentName}.json", true, true)
             .AddUserSecrets(typeof(IApiMarker).Assembly)
             .AddEnvironmentVariables();
 

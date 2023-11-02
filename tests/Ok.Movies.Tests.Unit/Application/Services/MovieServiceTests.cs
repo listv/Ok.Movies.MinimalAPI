@@ -6,6 +6,7 @@ using FluentValidation;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using NSubstitute.ReturnsExtensions;
+using Ok.Movies.Tests.Unit.Core;
 using Xunit;
 using ValidationException = FluentValidation.ValidationException;
 

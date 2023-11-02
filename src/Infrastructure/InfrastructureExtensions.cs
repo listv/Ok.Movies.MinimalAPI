@@ -22,7 +22,6 @@ public static class InfrastructureExtensions
             .AddDatabase()
             .AddJwtAuthentication()
             .AddAppAuthorization()
-            .AddApiKeyAuthentication()
             .AddVersioning()
             .AddOpenApiDocumentation()
             .AddHealthCheck()

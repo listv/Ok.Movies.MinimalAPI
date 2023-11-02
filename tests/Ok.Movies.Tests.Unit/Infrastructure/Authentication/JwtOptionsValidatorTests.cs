@@ -2,6 +2,7 @@
 using FluentValidation;
 using FluentValidation.TestHelper;
 using Infrastructure.Authentication;
+using Ok.Movies.Tests.Unit.Core;
 using Xunit;
 
 namespace Ok.Movies.Tests.Unit.Infrastructure.Authentication;
@@ -34,7 +35,7 @@ public class JwtOptionsValidatorTests
     }
 
     [Theory]
-    [MemberData(nameof(GetEmptyStrings))]
+    [MemberData(nameof(TestDataGenerator.GetEmptyStrings), MemberType = typeof(TestDataGenerator))]
     public void Validate_ShouldHaveValidationErrorForAudience_WhenAudienceIsEmpty(string audience)
     {
         // Arrange
@@ -62,7 +63,7 @@ public class JwtOptionsValidatorTests
     }
 
     [Theory]
-    [MemberData(nameof(GetEmptyStrings))]
+    [MemberData(nameof(TestDataGenerator.GetEmptyStrings), MemberType = typeof(TestDataGenerator))]
     public void Validate_ShouldHaveValidationErrorForKey_WhenKeyIsEmpty(string key)
     {
         // Arrange
@@ -89,7 +90,7 @@ public class JwtOptionsValidatorTests
     }
 
     [Theory]
-    [MemberData(nameof(GetEmptyStrings))]
+    [MemberData(nameof(TestDataGenerator.GetEmptyStrings), MemberType = typeof(TestDataGenerator))]
     public void Validate_ShouldHaveValidationErrorForIssuer_WhenIssuerIsEmpty(string issuer)
     {
         // Arrange
@@ -116,15 +117,4 @@ public class JwtOptionsValidatorTests
     }
 
     private static int MaxAllowedLength => 255;
-
-    public static IEnumerable<object?[]> GetEmptyStrings()
-    {
-        yield return new object?[] { null };
-        yield return new object[] { "" };
-        yield return new object[] { " " };
-        yield return new object[] { "\n" };
-        yield return new object[] { "\t" };
-        yield return new object[] { "\r" };
-        yield return new object[] { "\r\n" };
-    }
 }

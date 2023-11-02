@@ -47,20 +47,26 @@ public static class AuthenticationExtensions
 
     public static IServiceCollection AddAppAuthorization(this IServiceCollection services)
     {
+        services.AddSingleton<IValidator<AuthOptions>, AuthOptionsValidator>();
+        services
+            .AddOptions<AuthOptions>()
+            .BindConfiguration(AuthOptions.SectionName)
+            .ValidateFluently()
+            .ValidateOnStart();
+        
         return services.AddAuthorization(options =>
         {
+            var serviceProvider = services.BuildServiceProvider();
+            using var scope = serviceProvider.CreateScope();
+            var authOptions = scope.ServiceProvider.GetRequiredService<IOptions<AuthOptions>>().Value;
+            
             options.AddPolicy(AuthConstants.AdminUserPolicyName,
-                policy => policy.RequireClaim(AuthConstants.AdminUserClaimName, "true"));
+                policy => policy.AddRequirements(new AdminAuthRequirement(authOptions.ApiKey)));
 
             options.AddPolicy(AuthConstants.TrustedMemberPolicyName,
                 policy => policy.RequireAssertion(c =>
                     c.User.HasClaim(claim => claim is { Type: AuthConstants.AdminUserClaimName, Value: "true" }) ||
                     c.User.HasClaim(claim => claim is { Type: AuthConstants.TrustedMemberClaimName, Value: "true" })));
         });
-    }
-
-    public static IServiceCollection AddApiKeyAuthentication(this IServiceCollection services)
-    {
-        return services.AddScoped<ApiKeyAuthFilter>();
     }
 }

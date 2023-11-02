@@ -1,7 +1,7 @@
 using Application.Models;
 using Bogus;
 
-namespace Ok.Movies.Tests.Unit.Application;
+namespace Ok.Movies.Tests.Unit.Core;
 
 public sealed class MovieFaker : Faker<Movie>
 {

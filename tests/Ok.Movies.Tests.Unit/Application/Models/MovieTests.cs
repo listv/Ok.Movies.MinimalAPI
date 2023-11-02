@@ -1,5 +1,6 @@
 ﻿using Fare;
 using FluentAssertions;
+using Ok.Movies.Tests.Unit.Core;
 using Xunit;
 
 namespace Ok.Movies.Tests.Unit.Application.Models;

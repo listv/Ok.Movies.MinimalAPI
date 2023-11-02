@@ -2,6 +2,7 @@
 using Application.Validators;
 using FluentValidation.TestHelper;
 using NSubstitute;
+using Ok.Movies.Tests.Unit.Core;
 using Xunit;
 
 namespace Ok.Movies.Tests.Unit.Application.Validators;

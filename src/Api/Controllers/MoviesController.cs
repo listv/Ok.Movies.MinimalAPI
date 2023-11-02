@@ -6,6 +6,8 @@ using Contracts.Responses;
 using Infrastructure.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OutputCaching;
+using static Infrastructure.Cache.CacheExtensions;
 
 namespace Api.Controllers;
 
@@ -15,10 +17,14 @@ namespace Api.Controllers;
 public class MoviesController : ControllerBase
 {
     private readonly IMovieService _movieService;
+    private readonly IOutputCacheStore _cacheStore;
 
-    public MoviesController(IMovieService movieService)
+    public MoviesController(IMovieService movieService
+        , IOutputCacheStore cacheStore
+        )
     {
         _movieService = movieService;
+        _cacheStore = cacheStore;
     }
 
     [Authorize(AuthConstants.TrustedMemberPolicyName)]
@@ -27,11 +33,13 @@ public class MoviesController : ControllerBase
     {
         var movie = request.MapToMovie();
         await _movieService.CreateAsync(movie, token);
+        await _cacheStore.EvictByTagAsync(MoviesTag, token);
         var response = movie.MapToResponse();
         return CreatedAtAction(nameof(GetV1), new { idOrSlug = response.Id }, response);
     }
 
-    //[ResponseCache(Duration = 30, VaryByHeader = "Accept, Accept-Encoding", Location = ResponseCacheLocation.Any)]
+    // [ResponseCache(Duration = 30, VaryByHeader = "Accept, Accept-Encoding", Location = ResponseCacheLocation.Any)]
+    [OutputCache(PolicyName = MovieCachePolicy)]
     [MapToApiVersion(1.0)]
     [HttpGet(ApiEndpoints.Movies.Get)]
     public async Task<ActionResult<MovieResponse>> GetV1([FromRoute] string idOrSlug, CancellationToken token = default)
@@ -65,6 +73,7 @@ public class MoviesController : ControllerBase
     }
 
     [HttpGet(ApiEndpoints.Movies.GetAll)]
+    [OutputCache(PolicyName = MovieCachePolicy)]
     [ProducesResponseType(200)]
     [ProducesResponseType(400, Type = typeof(HttpValidationProblemDetails))]
     [ProducesDefaultResponseType(typeof(ValidationProblemDetails))]
@@ -94,6 +103,8 @@ public class MoviesController : ControllerBase
         var updatedMovie = await _movieService.UpdateAsync(movie, user, token);
         if (updatedMovie is null) return NotFound();
 
+        await _cacheStore.EvictByTagAsync(MoviesTag, token);
+        
         var response = updatedMovie.MapToResponse();
         return Ok(response);
     }
@@ -105,6 +116,8 @@ public class MoviesController : ControllerBase
         var isDeleted = await _movieService.DeleteByIdAsync(id, token);
 
         if (!isDeleted) return NotFound();
+        
+        await _cacheStore.EvictByTagAsync(MoviesTag, token);
 
         return Ok();
     }

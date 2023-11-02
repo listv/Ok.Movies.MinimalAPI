@@ -1,4 +1,5 @@
 ﻿using Infrastructure.Authentication;
+using Infrastructure.Cache;
 using Infrastructure.Database;
 using Infrastructure.Health;
 using Infrastructure.Middleware;
@@ -24,7 +25,8 @@ public static class InfrastructureExtensions
             .AddVersioning()
             .AddOpenApiDocumentation()
             .AddHealthCheck()
-            //.AddResponseCaching()
+            // .AddResponseCaching()
+            .AddOutputCaching()
             ;
 
         return services;
@@ -35,7 +37,9 @@ public static class InfrastructureExtensions
         return builder
             .UseAuthentication()
             .UseAuthorization()
-            //.UseResponseCaching()
+            // .UseCors()
+            // .UseResponseCaching()
+            .UseOutputCaching()
             .UseExceptionMiddleware()
             .UseOpenApiDocumentation();
     }

@@ -100,6 +100,20 @@ public static class MoviesApiConventions
     {
     }
 
+    [ProducesResponseType(201)]
+    [ProducesResponseType(400, Type = typeof(HttpValidationProblemDetails))]
+    [ProducesDefaultResponseType(typeof(ValidationProblemDetails))]
+    [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Prefix)]
+    public static void Create(
+        [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Any)]
+        [ApiConventionTypeMatch(ApiConventionTypeMatchBehavior.Any)]
+        object request,
+        [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Any)]
+        [ApiConventionTypeMatch(ApiConventionTypeMatchBehavior.Any)]
+        object cancellationToken)
+    {
+    }
+
     [ProducesResponseType(200)]
     [ProducesResponseType(400, Type = typeof(HttpValidationProblemDetails))]
     [ProducesDefaultResponseType(typeof(ValidationProblemDetails))]

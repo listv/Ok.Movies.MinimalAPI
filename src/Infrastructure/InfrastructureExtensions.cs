@@ -23,7 +23,9 @@ public static class InfrastructureExtensions
             .AddAppAuthorization()
             .AddVersioning()
             .AddOpenApiDocumentation()
-            .AddHealthCheck();
+            .AddHealthCheck()
+            //.AddResponseCaching()
+            ;
 
         return services;
     }
@@ -33,6 +35,7 @@ public static class InfrastructureExtensions
         return builder
             .UseAuthentication()
             .UseAuthorization()
+            //.UseResponseCaching()
             .UseExceptionMiddleware()
             .UseOpenApiDocumentation();
     }

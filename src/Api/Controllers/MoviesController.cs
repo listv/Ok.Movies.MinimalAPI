@@ -23,9 +23,7 @@ public class MoviesController : ControllerBase
 
     [Authorize(AuthConstants.TrustedMemberPolicyName)]
     [HttpPost(ApiEndpoints.Movies.Create)]
-    [ProducesResponseType(typeof(MovieResponse), StatusCodes.Status201Created)]
-    [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> CreateV1([FromBody] CreateMovieRequest request, CancellationToken token = default)
+    public async Task<ActionResult<MovieResponse>> CreateV1([FromBody] CreateMovieRequest request, CancellationToken token = default)
     {
         var movie = request.MapToMovie();
         await _movieService.CreateAsync(movie, token);
@@ -33,6 +31,7 @@ public class MoviesController : ControllerBase
         return CreatedAtAction(nameof(GetV1), new { idOrSlug = response.Id }, response);
     }
 
+    //[ResponseCache(Duration = 30, VaryByHeader = "Accept, Accept-Encoding", Location = ResponseCacheLocation.Any)]
     [MapToApiVersion(1.0)]
     [HttpGet(ApiEndpoints.Movies.Get)]
     public async Task<ActionResult<MovieResponse>> GetV1([FromRoute] string idOrSlug, CancellationToken token = default)
@@ -66,6 +65,9 @@ public class MoviesController : ControllerBase
     }
 
     [HttpGet(ApiEndpoints.Movies.GetAll)]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(400, Type = typeof(HttpValidationProblemDetails))]
+    [ProducesDefaultResponseType(typeof(ValidationProblemDetails))]
     public async Task<ActionResult<MoviesResponse>> GetAll([FromQuery] GetAllMoviesRequest request, CancellationToken token = default)
     {
         var userId = HttpContext.GetUserId();

@@ -1,7 +1,7 @@
 using System.Data;
 using Npgsql;
 
-namespace Infrastructure.Database;
+namespace Ok.Movies.Infrastructure.Database;
 
 public class NpgsqlConnectionFactory : IDbConnectionFactory
 {

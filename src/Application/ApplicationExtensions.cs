@@ -1,9 +1,9 @@
-﻿using Application.Repositories;
-using Application.Services;
-using FluentValidation;
+﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
+using Ok.Movies.Application.Repositories;
+using Ok.Movies.Application.Services;
 
-namespace Application;
+namespace Ok.Movies.Application;
 
 public static class ApplicationExtensions
 {

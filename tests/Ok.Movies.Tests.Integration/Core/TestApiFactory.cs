@@ -1,9 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using System.Security.Claims;
-using Api;
-using Database.Migrations;
 using FluentMigrator.Runner;
-using Infrastructure.Database;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -12,6 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Ok.Movies.Api;
+using Ok.Movies.Database.Migrations;
+using Ok.Movies.Infrastructure.Database;
 using Testcontainers.PostgreSql;
 using Xunit;
 

@@ -1,9 +1,9 @@
-﻿using Application.Models;
-using Application.Repositories;
-using FluentValidation;
+﻿using FluentValidation;
 using FluentValidation.Results;
+using Ok.Movies.Application.Models;
+using Ok.Movies.Application.Repositories;
 
-namespace Application.Services;
+namespace Ok.Movies.Application.Services;
 
 public class RatingService : IRatingService
 {

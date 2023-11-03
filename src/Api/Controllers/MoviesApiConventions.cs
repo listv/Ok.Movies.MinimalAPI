@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 
-namespace Api;
+namespace Ok.Movies.Api.Controllers;
 
 #nullable disable
 #pragma warning disable RCS1163, IDE0060

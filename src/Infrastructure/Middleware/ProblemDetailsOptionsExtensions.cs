@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using ProblemDetailsOptions = Hellang.Middleware.ProblemDetails.ProblemDetailsOptions;
 
-namespace Infrastructure.Middleware;
+namespace Ok.Movies.Infrastructure.Middleware;
 
 public static class ProblemDetailsOptionsExtensions
 {

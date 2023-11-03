@@ -1,8 +1,8 @@
-﻿using Application.Models;
-using Application.Repositories;
-using FluentValidation;
+﻿using FluentValidation;
+using Ok.Movies.Application.Models;
+using Ok.Movies.Application.Repositories;
 
-namespace Application.Services;
+namespace Ok.Movies.Application.Services;
 
 public class MovieService : IMovieService
 {

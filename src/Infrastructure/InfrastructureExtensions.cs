@@ -1,16 +1,16 @@
-﻿using Infrastructure.Authentication;
-using Infrastructure.Cache;
-using Infrastructure.Database;
-using Infrastructure.Health;
-using Infrastructure.Middleware;
-using Infrastructure.OpenApi;
-using Infrastructure.Versioning;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using Ok.Movies.Infrastructure.Authentication;
+using Ok.Movies.Infrastructure.Cache;
+using Ok.Movies.Infrastructure.Database;
+using Ok.Movies.Infrastructure.Health;
+using Ok.Movies.Infrastructure.Middleware;
+using Ok.Movies.Infrastructure.OpenApi;
+using Ok.Movies.Infrastructure.Versioning;
 
-namespace Infrastructure;
+namespace Ok.Movies.Infrastructure;
 
 public static class InfrastructureExtensions
 {

@@ -1,6 +1,6 @@
-﻿using Application.Models;
+﻿using Ok.Movies.Application.Models;
 
-namespace Application.Repositories;
+namespace Ok.Movies.Application.Repositories;
 
 public interface IRatingRepository
 {

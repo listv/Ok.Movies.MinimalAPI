@@ -1,11 +1,11 @@
-﻿using Application.Models;
-using Application.Repositories;
-using Application.Services;
-using FluentAssertions;
+﻿using FluentAssertions;
 using FluentValidation;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using NSubstitute.ReturnsExtensions;
+using Ok.Movies.Application.Models;
+using Ok.Movies.Application.Repositories;
+using Ok.Movies.Application.Services;
 using Ok.Movies.Tests.Unit.Core;
 using Xunit;
 using ValidationException = FluentValidation.ValidationException;

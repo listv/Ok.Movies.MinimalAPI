@@ -1,6 +1,6 @@
 ﻿using System.Net;
-using Api;
 using FluentAssertions;
+using Ok.Movies.Api;
 using Xunit;
 
 namespace Ok.Movies.Tests.Integration.Api.Controllers.Ratings;

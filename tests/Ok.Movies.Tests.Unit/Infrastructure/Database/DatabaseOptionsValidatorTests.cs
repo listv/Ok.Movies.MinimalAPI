@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.TestHelper;
-using Infrastructure.Database;
+using Ok.Movies.Infrastructure.Database;
 using Xunit;
 
 namespace Ok.Movies.Tests.Unit.Infrastructure.Database;

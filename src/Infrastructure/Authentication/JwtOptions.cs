@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Authentication;
+﻿namespace Ok.Movies.Infrastructure.Authentication;
 
 public class JwtOptions
 {

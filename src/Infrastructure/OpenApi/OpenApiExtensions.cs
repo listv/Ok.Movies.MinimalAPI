@@ -4,7 +4,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Infrastructure.OpenApi;
+namespace Ok.Movies.Infrastructure.OpenApi;
 
 public static class OpenApiExtensions
 {

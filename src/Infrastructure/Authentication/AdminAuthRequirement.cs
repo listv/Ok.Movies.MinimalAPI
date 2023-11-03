@@ -2,7 +2,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 
-namespace Infrastructure.Authentication;
+namespace Ok.Movies.Infrastructure.Authentication;
 
 public class AdminAuthRequirement : IAuthorizationHandler, IAuthorizationRequirement
 {

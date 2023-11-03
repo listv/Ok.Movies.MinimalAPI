@@ -1,7 +1,7 @@
-﻿using Application.Repositories;
-using Application.Validators;
-using FluentValidation.TestHelper;
+﻿using FluentValidation.TestHelper;
 using NSubstitute;
+using Ok.Movies.Application.Repositories;
+using Ok.Movies.Application.Validators;
 using Ok.Movies.Tests.Unit.Core;
 using Xunit;
 

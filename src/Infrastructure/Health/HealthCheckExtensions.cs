@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastructure.Health;
+namespace Ok.Movies.Infrastructure.Health;
 
 public static class HealthCheckExtensions
 {

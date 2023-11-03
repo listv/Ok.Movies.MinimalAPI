@@ -1,4 +1,4 @@
-﻿namespace Application.Models;
+﻿namespace Ok.Movies.Application.Models;
 
 public class GetAllMoviesOptions
 {

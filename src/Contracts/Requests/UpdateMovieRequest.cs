@@ -1,4 +1,4 @@
-﻿namespace Contracts.Requests;
+﻿namespace Ok.Movies.Contracts.Requests;
 
 public class UpdateMovieRequest
 {

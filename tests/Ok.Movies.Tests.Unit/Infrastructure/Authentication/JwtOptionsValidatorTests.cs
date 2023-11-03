@@ -1,7 +1,7 @@
 ﻿using Bogus;
 using FluentValidation;
 using FluentValidation.TestHelper;
-using Infrastructure.Authentication;
+using Ok.Movies.Infrastructure.Authentication;
 using Ok.Movies.Tests.Unit.Core;
 using Xunit;
 

@@ -1,11 +1,11 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
 using System.Security.Claims;
-using Api;
-using Contracts.Requests;
-using Contracts.Responses;
 using FluentAssertions;
-using Infrastructure.Authentication;
+using Ok.Movies.Api;
+using Ok.Movies.Contracts.Requests;
+using Ok.Movies.Contracts.Responses;
+using Ok.Movies.Infrastructure.Authentication;
 using Ok.Movies.Tests.Integration.Core;
 using Xunit;
 

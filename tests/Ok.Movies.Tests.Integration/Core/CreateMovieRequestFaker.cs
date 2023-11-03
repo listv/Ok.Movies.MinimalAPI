@@ -1,5 +1,5 @@
 ﻿using Bogus;
-using Contracts.Requests;
+using Ok.Movies.Contracts.Requests;
 
 namespace Ok.Movies.Tests.Integration.Core;
 

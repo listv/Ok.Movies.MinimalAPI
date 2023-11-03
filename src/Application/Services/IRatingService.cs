@@ -1,6 +1,6 @@
-﻿using Application.Models;
+﻿using Ok.Movies.Application.Models;
 
-namespace Application.Services;
+namespace Ok.Movies.Application.Services;
 
 public interface IRatingService
 {

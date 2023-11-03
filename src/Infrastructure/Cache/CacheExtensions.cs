@@ -1,8 +1,8 @@
-using Contracts.Requests;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Ok.Movies.Contracts.Requests;
 
-namespace Infrastructure.Cache;
+namespace Ok.Movies.Infrastructure.Cache;
 
 public static class CacheExtensions
 {

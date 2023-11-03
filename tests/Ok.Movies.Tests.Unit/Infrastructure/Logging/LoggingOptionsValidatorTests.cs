@@ -1,6 +1,6 @@
 ﻿using Bogus;
 using FluentValidation.TestHelper;
-using Infrastructure.Logging;
+using Ok.Movies.Infrastructure.Logging;
 using Serilog.Events;
 using Xunit;
 

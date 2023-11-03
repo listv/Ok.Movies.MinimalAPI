@@ -1,8 +1,8 @@
-using Infrastructure.Database;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Logging;
+using Ok.Movies.Infrastructure.Database;
 
-namespace Infrastructure.Health;
+namespace Ok.Movies.Infrastructure.Health;
 
 public class DatabaseHealthCheck : IHealthCheck
 {

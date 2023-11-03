@@ -1,6 +1,6 @@
 ﻿using FluentMigrator;
 
-namespace Database.Migrations._2023;
+namespace Ok.Movies.Database.Migrations._2023;
 
 [Migration(202308071625)]
 public class CreateGenresTable : Migration

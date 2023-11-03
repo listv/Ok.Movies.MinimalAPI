@@ -1,12 +1,12 @@
-﻿using Api.Mapping;
-using Application.Services;
-using Asp.Versioning;
-using Contracts.Requests;
-using Infrastructure.Authentication;
+﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Ok.Movies.Api.Mapping;
+using Ok.Movies.Application.Services;
+using Ok.Movies.Contracts.Requests;
+using Ok.Movies.Infrastructure.Authentication;
 
-namespace Api.Controllers;
+namespace Ok.Movies.Api.Controllers;
 
 [ApiController]
 [ApiVersion(1.0)]

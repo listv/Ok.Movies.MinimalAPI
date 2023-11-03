@@ -1,8 +1,8 @@
 ﻿using System.Net.Http.Json;
 using System.Security.Claims;
-using Api;
-using Contracts.Responses;
-using Infrastructure.Authentication;
+using Ok.Movies.Api;
+using Ok.Movies.Contracts.Responses;
+using Ok.Movies.Infrastructure.Authentication;
 using Ok.Movies.Tests.Integration.Core;
 
 namespace Ok.Movies.Tests.Integration.Api.Controllers.Ratings;

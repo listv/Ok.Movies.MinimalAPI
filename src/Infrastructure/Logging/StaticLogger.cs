@@ -1,7 +1,7 @@
 ﻿using Serilog;
 using Serilog.Events;
 
-namespace Infrastructure.Logging;
+namespace Ok.Movies.Infrastructure.Logging;
 
 public static class StaticLogger
 {

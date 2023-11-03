@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Infrastructure.OpenApi;
+namespace Ok.Movies.Infrastructure.OpenApi;
 
 public class SwaggerDefaultValues : IOperationFilter
 {

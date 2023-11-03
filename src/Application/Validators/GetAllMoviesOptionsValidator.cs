@@ -1,7 +1,7 @@
-﻿using Application.Models;
-using FluentValidation;
+﻿using FluentValidation;
+using Ok.Movies.Application.Models;
 
-namespace Application.Validators;
+namespace Ok.Movies.Application.Validators;
 
 public class GetAllMoviesOptionsValidator:AbstractValidator<GetAllMoviesOptions>
 {

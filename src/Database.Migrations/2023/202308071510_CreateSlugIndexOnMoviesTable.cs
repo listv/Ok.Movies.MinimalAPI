@@ -1,7 +1,7 @@
 ﻿using FluentMigrator;
 using FluentMigrator.Postgres;
 
-namespace Database.Migrations._2023;
+namespace Ok.Movies.Database.Migrations._2023;
 
 [Migration(202308071510, TransactionBehavior.None)]
 public class CreateSlugIndexOnMoviesTable:Migration

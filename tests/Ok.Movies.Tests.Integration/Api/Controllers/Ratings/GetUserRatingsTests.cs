@@ -1,10 +1,10 @@
 using System.Net;
 using System.Net.Http.Json;
 using System.Security.Claims;
-using Api;
-using Contracts.Responses;
 using FluentAssertions;
-using Infrastructure.Authentication;
+using Ok.Movies.Api;
+using Ok.Movies.Contracts.Responses;
+using Ok.Movies.Infrastructure.Authentication;
 using Xunit;
 
 namespace Ok.Movies.Tests.Integration.Api.Controllers.Ratings;

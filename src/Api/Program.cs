@@ -1,9 +1,9 @@
-using Api;
-using Api.Configurations;
-using Application;
-using Infrastructure;
-using Infrastructure.Logging;
 using Microsoft.AspNetCore.Mvc;
+using Ok.Movies.Api.Configurations;
+using Ok.Movies.Api.Controllers;
+using Ok.Movies.Application;
+using Ok.Movies.Infrastructure;
+using Ok.Movies.Infrastructure.Logging;
 using Serilog;
 
 [assembly: ApiConventionType(typeof(MoviesApiConventions))]

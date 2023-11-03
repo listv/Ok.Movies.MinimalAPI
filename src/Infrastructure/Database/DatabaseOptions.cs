@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Database;
+﻿namespace Ok.Movies.Infrastructure.Database;
 
 public class DatabaseOptions
 {

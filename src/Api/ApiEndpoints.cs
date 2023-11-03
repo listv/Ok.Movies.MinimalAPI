@@ -1,4 +1,4 @@
-﻿namespace Api;
+﻿namespace Ok.Movies.Api;
 
 public static class ApiEndpoints
 {

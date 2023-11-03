@@ -1,15 +1,15 @@
-﻿using Api.Mapping;
-using Application.Services;
-using Asp.Versioning;
-using Contracts.Requests;
-using Contracts.Responses;
-using Infrastructure.Authentication;
+﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
-using static Infrastructure.Cache.CacheExtensions;
+using Ok.Movies.Api.Mapping;
+using Ok.Movies.Application.Services;
+using Ok.Movies.Contracts.Requests;
+using Ok.Movies.Contracts.Responses;
+using Ok.Movies.Infrastructure.Authentication;
+using static Ok.Movies.Infrastructure.Cache.CacheExtensions;
 
-namespace Api.Controllers;
+namespace Ok.Movies.Api.Controllers;
 
 [ApiController]
 [ApiVersion(1.0)]

@@ -6,7 +6,7 @@ using Ok.Movies.Infrastructure;
 using Ok.Movies.Infrastructure.Logging;
 using Serilog;
 
-[assembly: ApiConventionType(typeof(MoviesApiConventions))]
+[assembly: ApiConventionType(typeof(ApiConventions))]
 
 StaticLogger.EnsureInitialized(args);
 Log.Information("Server booting up...");

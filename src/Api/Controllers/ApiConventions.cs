@@ -6,7 +6,7 @@ namespace Ok.Movies.Api.Controllers;
 #nullable disable
 #pragma warning disable RCS1163, IDE0060
 
-public static class MoviesApiConventions
+public static class ApiConventions
 {
     [ProducesResponseType(200)]
     [ProducesResponseType(400, Type = typeof(HttpValidationProblemDetails))]

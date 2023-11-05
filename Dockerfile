@@ -1,5 +1,5 @@
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-COPY ./Ok.Movies.sln .
+COPY ./Ok.Movies.MinimalAPI.sln .
 
 COPY ./src/*/*.csproj ./
 RUN for file in $(ls *.csproj); do mkdir -p ./src/${file%.*}/ && mv $file ./src/${file%.*}/; done

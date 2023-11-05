@@ -1,5 +1,5 @@
 using Bogus;
-using Ok.Movies.Application.Models;
+using Ok.Movies.MinimalAPI.Application.Models;
 
 namespace Ok.Movies.Tests.Unit.Core;
 

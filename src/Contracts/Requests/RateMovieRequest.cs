@@ -1,4 +1,4 @@
-﻿namespace Ok.Movies.Contracts.Requests;
+﻿namespace Ok.Movies.MinimalAPI.Contracts.Requests;
 
 public class RateMovieRequest
 {

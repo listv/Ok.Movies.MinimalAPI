@@ -9,9 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using Ok.Movies.Api;
-using Ok.Movies.Database.Migrations;
-using Ok.Movies.Infrastructure.Database;
+using Ok.Movies.MinimalAPI.Api;
+using Ok.Movies.MinimalAPI.Database.Migrations;
+using Ok.Movies.MinimalAPI.Infrastructure.Database;
 using Testcontainers.PostgreSql;
 using Xunit;
 

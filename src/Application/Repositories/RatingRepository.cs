@@ -1,8 +1,8 @@
 ﻿using Dapper;
-using Ok.Movies.Application.Models;
-using Ok.Movies.Infrastructure.Database;
+using Ok.Movies.MinimalAPI.Application.Models;
+using Ok.Movies.MinimalAPI.Infrastructure.Database;
 
-namespace Ok.Movies.Application.Repositories;
+namespace Ok.Movies.MinimalAPI.Application.Repositories;
 
 public class RatingRepository : IRatingRepository
 {

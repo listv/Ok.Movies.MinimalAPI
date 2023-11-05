@@ -1,3 +1,3 @@
-﻿namespace Ok.Movies.Api;
+﻿namespace Ok.Movies.MinimalAPI.Api;
 
 public interface IApiMarker { }

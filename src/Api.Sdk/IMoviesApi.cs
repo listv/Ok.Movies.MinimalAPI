@@ -1,8 +1,8 @@
-using Ok.Movies.Contracts.Requests;
-using Ok.Movies.Contracts.Responses;
+using Ok.Movies.MinimalAPI.Contracts.Requests;
+using Ok.Movies.MinimalAPI.Contracts.Responses;
 using Refit;
 
-namespace Ok.Movies.Api.Sdk;
+namespace Ok.Movies.MinimalAPI.Api.Sdk;
 
 [Headers("Authorization: Bearer")]
 public interface IMoviesApi

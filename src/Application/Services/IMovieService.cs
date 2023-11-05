@@ -1,6 +1,6 @@
-﻿using Ok.Movies.Application.Models;
+﻿using Ok.Movies.MinimalAPI.Application.Models;
 
-namespace Ok.Movies.Application.Services;
+namespace Ok.Movies.MinimalAPI.Application.Services;
 
 public interface IMovieService
 {

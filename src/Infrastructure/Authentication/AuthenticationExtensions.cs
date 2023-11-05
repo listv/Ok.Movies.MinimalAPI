@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Ok.Movies.Infrastructure.Validation;
+using Ok.Movies.MinimalAPI.Infrastructure.Validation;
 
-namespace Ok.Movies.Infrastructure.Authentication;
+namespace Ok.Movies.MinimalAPI.Infrastructure.Authentication;
 
 public static class AuthenticationExtensions
 {

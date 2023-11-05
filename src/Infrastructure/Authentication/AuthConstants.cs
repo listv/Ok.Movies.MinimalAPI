@@ -1,4 +1,4 @@
-﻿namespace Ok.Movies.Infrastructure.Authentication;
+﻿namespace Ok.Movies.MinimalAPI.Infrastructure.Authentication;
 
 public static class AuthConstants
 {

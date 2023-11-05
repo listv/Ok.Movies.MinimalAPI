@@ -1,4 +1,4 @@
-namespace Ok.Movies.Contracts.Responses;
+namespace Ok.Movies.MinimalAPI.Contracts.Responses;
 
 public class PagedResponse<TResponse>
 {

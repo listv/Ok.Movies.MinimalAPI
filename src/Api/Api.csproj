@@ -5,8 +5,8 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UserSecretsId>586836f8-bab3-453c-947f-d386410afb05</UserSecretsId>
-        <AssemblyName>Ok.Movies.Api</AssemblyName>
-        <RootNamespace>Ok.Movies.Api</RootNamespace>
+        <AssemblyName>Ok.Movies.MinimalAPI.Api</AssemblyName>
+        <RootNamespace>Ok.Movies.MinimalAPI.Api</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

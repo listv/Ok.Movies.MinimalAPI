@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using Ok.Movies.Application.Models;
-using Ok.Movies.Application.Repositories;
+using Ok.Movies.MinimalAPI.Application.Models;
+using Ok.Movies.MinimalAPI.Application.Repositories;
 
-namespace Ok.Movies.Application.Validators;
+namespace Ok.Movies.MinimalAPI.Application.Validators;
 
 public class MovieValidator : AbstractValidator<Movie>
 {

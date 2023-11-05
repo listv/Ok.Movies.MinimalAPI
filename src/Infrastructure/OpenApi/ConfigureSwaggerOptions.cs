@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Ok.Movies.Infrastructure.OpenApi;
+namespace Ok.Movies.MinimalAPI.Infrastructure.OpenApi;
 
 public class ConfigureSwaggerOptions:IConfigureOptions<SwaggerGenOptions>
 {

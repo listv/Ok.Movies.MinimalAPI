@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Ok.Movies.Infrastructure.Authentication;
+namespace Ok.Movies.MinimalAPI.Infrastructure.Authentication;
 
 public class JwtOptionsValidator:AbstractValidator<JwtOptions>
 {

@@ -8,7 +8,7 @@ using Polly;
 using Serilog;
 using Serilog.Events;
 
-namespace Ok.Movies.Database.Migrations;
+namespace Ok.Movies.MinimalAPI.Database.Migrations;
 
 internal static class Program
 {

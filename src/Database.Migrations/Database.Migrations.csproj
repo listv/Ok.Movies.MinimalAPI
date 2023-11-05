@@ -6,8 +6,8 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <UserSecretsId>54bb8496-4ef1-4fd9-ac86-c5367a8d2ff4</UserSecretsId>
-        <AssemblyName>Ok.Movies.Database.Migrations</AssemblyName>
-        <RootNamespace>Ok.Movies.Database.Migrations</RootNamespace>
+        <AssemblyName>Ok.Movies.MinimalAPI.Database.Migrations</AssemblyName>
+        <RootNamespace>Ok.Movies.MinimalAPI.Database.Migrations</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Ok.Movies.Infrastructure.Middleware;
+namespace Ok.Movies.MinimalAPI.Infrastructure.Middleware;
 
 public static class MiddlewareExtensions
 {

@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using Ok.Movies.Application.Models;
-using Ok.Movies.Application.Repositories;
+using Ok.Movies.MinimalAPI.Application.Models;
+using Ok.Movies.MinimalAPI.Application.Repositories;
 
-namespace Ok.Movies.Application.Services;
+namespace Ok.Movies.MinimalAPI.Application.Services;
 
 public class MovieService : IMovieService
 {

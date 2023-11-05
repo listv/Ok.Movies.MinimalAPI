@@ -1,7 +1,7 @@
 using Asp.Versioning;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Ok.Movies.Infrastructure.Versioning;
+namespace Ok.Movies.MinimalAPI.Infrastructure.Versioning;
 
 public static class VersioningExtensions
 {

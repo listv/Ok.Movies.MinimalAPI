@@ -2,14 +2,14 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
-using Ok.Movies.Api.Mapping;
-using Ok.Movies.Application.Services;
-using Ok.Movies.Contracts.Requests;
-using Ok.Movies.Contracts.Responses;
-using Ok.Movies.Infrastructure.Authentication;
-using static Ok.Movies.Infrastructure.Cache.CacheExtensions;
+using Ok.Movies.MinimalAPI.Api.Mapping;
+using Ok.Movies.MinimalAPI.Application.Services;
+using Ok.Movies.MinimalAPI.Contracts.Requests;
+using Ok.Movies.MinimalAPI.Contracts.Responses;
+using Ok.Movies.MinimalAPI.Infrastructure.Authentication;
+using static Ok.Movies.MinimalAPI.Infrastructure.Cache.CacheExtensions;
 
-namespace Ok.Movies.Api.Controllers;
+namespace Ok.Movies.MinimalAPI.Api.Controllers;
 
 [ApiController]
 [ApiVersion(1.0)]

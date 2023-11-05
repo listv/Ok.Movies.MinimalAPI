@@ -4,8 +4,8 @@
         <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <AssemblyName>Ok.Movies.Api.Sdk</AssemblyName>
-        <RootNamespace>Ok.Movies.Api.Sdk</RootNamespace>
+        <AssemblyName>Ok.Movies.MinimalAPI.Api.Sdk</AssemblyName>
+        <RootNamespace>Ok.Movies.MinimalAPI.Api.Sdk</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

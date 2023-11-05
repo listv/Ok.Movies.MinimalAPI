@@ -1,9 +1,9 @@
 ﻿using Bogus;
 using FluentAssertions;
 using NSubstitute;
-using Ok.Movies.Application.Models;
-using Ok.Movies.Application.Repositories;
-using Ok.Movies.Application.Services;
+using Ok.Movies.MinimalAPI.Application.Models;
+using Ok.Movies.MinimalAPI.Application.Repositories;
+using Ok.Movies.MinimalAPI.Application.Services;
 using Xunit;
 using ValidationException = FluentValidation.ValidationException;
 

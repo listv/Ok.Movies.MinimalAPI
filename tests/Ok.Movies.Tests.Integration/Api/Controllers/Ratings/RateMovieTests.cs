@@ -2,7 +2,7 @@
 using System.Net.Http.Json;
 using Bogus;
 using FluentAssertions;
-using Ok.Movies.Api;
+using Ok.Movies.MinimalAPI.Api;
 using Ok.Movies.Tests.Integration.Core;
 using Xunit;
 

@@ -1,12 +1,12 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Ok.Movies.Api.Mapping;
-using Ok.Movies.Application.Services;
-using Ok.Movies.Contracts.Requests;
-using Ok.Movies.Infrastructure.Authentication;
+using Ok.Movies.MinimalAPI.Api.Mapping;
+using Ok.Movies.MinimalAPI.Application.Services;
+using Ok.Movies.MinimalAPI.Contracts.Requests;
+using Ok.Movies.MinimalAPI.Infrastructure.Authentication;
 
-namespace Ok.Movies.Api.Controllers;
+namespace Ok.Movies.MinimalAPI.Api.Controllers;
 
 [ApiController]
 [ApiVersion(1.0)]

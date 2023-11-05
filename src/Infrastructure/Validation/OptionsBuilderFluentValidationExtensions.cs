@@ -3,7 +3,7 @@ using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace Ok.Movies.Infrastructure.Validation;
+namespace Ok.Movies.MinimalAPI.Infrastructure.Validation;
 
 public static class OptionsBuilderFluentValidationExtensions
 {

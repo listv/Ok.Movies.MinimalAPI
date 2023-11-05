@@ -1,6 +1,6 @@
-﻿using Ok.Movies.Application.Models;
+﻿using Ok.Movies.MinimalAPI.Application.Models;
 
-namespace Ok.Movies.Application.Repositories;
+namespace Ok.Movies.MinimalAPI.Application.Repositories;
 
 public interface IMovieRepository
 {

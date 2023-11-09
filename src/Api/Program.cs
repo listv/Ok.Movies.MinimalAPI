@@ -1,12 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
 using Ok.Movies.MinimalAPI.Api.Configurations;
-using Ok.Movies.MinimalAPI.Api.Controllers;
+using Ok.Movies.MinimalAPI.Api.Endpoints;
 using Ok.Movies.MinimalAPI.Application;
 using Ok.Movies.MinimalAPI.Infrastructure;
 using Ok.Movies.MinimalAPI.Infrastructure.Logging;
+using Ok.Movies.MinimalAPI.Infrastructure.Versioning;
 using Serilog;
-
-[assembly: ApiConventionType(typeof(ApiConventions))]
 
 StaticLogger.EnsureInitialized(args);
 Log.Information("Server booting up...");
@@ -16,14 +14,14 @@ try
 
     builder.AddConfigurations().RegisterSerilog();
 
-    builder.Services.AddControllers();
     builder.Services.AddInfrastructure(builder.Environment);
     builder.Services.AddApplication();
 
     var app = builder.Build();
 
+    app.UseVersioning();
+    app.MapApiEndpoints();
     app.UseInfrastructure();
-    app.MapEndpoints();
 
     app.Run();
 }

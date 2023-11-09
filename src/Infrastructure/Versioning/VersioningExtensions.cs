@@ -1,4 +1,6 @@
 using Asp.Versioning;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Ok.Movies.MinimalAPI.Infrastructure.Versioning;
@@ -15,9 +17,14 @@ public static class VersioningExtensions
                 x.ReportApiVersions = true;
                 x.ApiVersionReader = new MediaTypeApiVersionReader("api-version");
             })
-            .AddMvc()
             .AddApiExplorer();
 
         return services;
+    }
+
+    public static IApplicationBuilder UseVersioning(this IApplicationBuilder app)
+    {
+        (app as IEndpointRouteBuilder)?.CreateApiVersionSet();
+        return app;
     }
 }

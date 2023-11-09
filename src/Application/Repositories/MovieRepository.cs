@@ -1,4 +1,6 @@
+using System.Text.Json;
 using Dapper;
+using Microsoft.Extensions.Logging;
 using Ok.Movies.MinimalAPI.Application.Models;
 using Ok.Movies.MinimalAPI.Infrastructure.Database;
 
@@ -7,10 +9,12 @@ namespace Ok.Movies.MinimalAPI.Application.Repositories;
 public class MovieRepository : IMovieRepository
 {
     private readonly IDbConnectionFactory _dbConnectionFactory;
+    private readonly ILogger<MovieRepository> _logger;
 
-    public MovieRepository(IDbConnectionFactory dbConnectionFactory)
+    public MovieRepository(IDbConnectionFactory dbConnectionFactory, ILogger<MovieRepository> logger)
     {
         _dbConnectionFactory = dbConnectionFactory;
+        _logger = logger;
     }
 
     public async Task<bool> UpdateAsync(Movie movie, CancellationToken token = default)
@@ -47,6 +51,7 @@ public class MovieRepository : IMovieRepository
 
     public async Task<bool> CreateAsync(Movie movie, CancellationToken token = default)
     {
+        _logger.LogTrace("Creating movie {Movie}", JsonSerializer.Serialize(movie));
         using var connection = await _dbConnectionFactory.CreateConnectionAsync(token).ConfigureAwait(false);
         using var transaction = connection.BeginTransaction();
         var result = await connection.ExecuteAsync(new CommandDefinition("""
@@ -121,31 +126,30 @@ public class MovieRepository : IMovieRepository
 
     public async Task<IEnumerable<Movie>> GetAllAsync(GetAllMoviesOptions options, CancellationToken token = default)
     {
+        _logger.LogTrace("Getting all movies with parameters {Params}", JsonSerializer.Serialize(options));
         using var connection = await _dbConnectionFactory.CreateConnectionAsync(token).ConfigureAwait(false);
 
         var orderClause = string.Empty;
         if (options.SortField is not null)
-        {
             orderClause = $"""
                            , m.{options.SortField}
                            order by m.{options.SortField} {(options.SortOrder == SortOrder.Ascending ? "asc" : "desc")}
                            """;
-        }
 
         var result = await connection.QueryAsync(new CommandDefinition($"""
-                                                                       select m.*, string_agg(g.name, ',') as genres,
-                                                                              round(avg(r.rating), 1) as rating,
-                                                                              myr.rating as userrating
-                                                                       from movies m
-                                                                       left join genres g on m.id = g.movie_id
-                                                                       left join ratings r on m.id = r.movie_id
-                                                                       left join ratings myr on m.id = myr.movie_id and myr.user_id = @userId
-                                                                       where (@title is null or m.title like('%' || @title || '%'))
-                                                                       and (@yearOfRelease is null or m.year_of_release = @yearOfRelease)
-                                                                       group by m.id, myr.rating {orderClause}
-                                                                       limit @pageSize
-                                                                       offset @pageOffset
-                                                                       """, options, cancellationToken: token))
+                                                                        select m.*, string_agg(g.name, ',') as genres,
+                                                                               round(avg(r.rating), 1) as rating,
+                                                                               myr.rating as userrating
+                                                                        from movies m
+                                                                        left join genres g on m.id = g.movie_id
+                                                                        left join ratings r on m.id = r.movie_id
+                                                                        left join ratings myr on m.id = myr.movie_id and myr.user_id = @userId
+                                                                        where (@title is null or m.title like('%' || @title || '%'))
+                                                                        and (@yearOfRelease is null or m.year_of_release = @yearOfRelease)
+                                                                        group by m.id, myr.rating {orderClause}
+                                                                        limit @pageSize
+                                                                        offset @pageOffset
+                                                                        """, options, cancellationToken: token))
             .ConfigureAwait(false);
         return result.Select(movie => new Movie
         {

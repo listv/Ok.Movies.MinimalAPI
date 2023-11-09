@@ -23,6 +23,16 @@ public class TestApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLifetime
         .WithImage("postgres:latest")
         .Build();
 
+    public async Task InitializeAsync()
+    {
+        await _dbContainer.StartAsync().ConfigureAwait(false);
+    }
+
+    public new async Task DisposeAsync()
+    {
+        await _dbContainer.DisposeAsync().ConfigureAwait(false);
+    }
+
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.ConfigureLogging(loggingBuilder => loggingBuilder.ClearProviders());
@@ -58,33 +68,26 @@ public class TestApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLifetime
         });
     }
 
-    public async Task InitializeAsync()
+    public HttpClient CreateAndConfigureClient(double version = 1.0, params Claim[] claims)
     {
-        await _dbContainer.StartAsync().ConfigureAwait(false);
-    }
+        var client = CreateClient(version);
 
-    public new async Task DisposeAsync()
-    {
-        await _dbContainer.DisposeAsync().ConfigureAwait(false);
-    }
-
-    public HttpClient CreateAndConfigureClient(params Claim[] paramClaims)
-    {
-        var client = CreateClient(new WebApplicationFactoryClientOptions
-        {
-            AllowAutoRedirect = false
-        });
-
-        var claims = new List<Claim>(paramClaims);
-        if (claims.TrueForAll(claim => claim.Type != "userid"))
-        {
-            claims.Add(new Claim("userid", Guid.NewGuid().ToString()));
-        }
+        var jwtClaims = new List<Claim>(claims);
+        if (jwtClaims.TrueForAll(claim => claim.Type != "userid"))
+            jwtClaims.Add(new Claim("userid", Guid.NewGuid().ToString()));
 
         client.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue(JwtBearerDefaults.AuthenticationScheme,
-                MockJwtTokens.GenerateJwtToken(claims));
+                MockJwtTokens.GenerateJwtToken(jwtClaims));
+        client.DefaultRequestHeaders.Add("Accept", $"application/json;api-version={version}");
 
+        return client;
+    }
+
+    public HttpClient CreateClient(double version = 1.0)
+    {
+        var client = base.CreateClient();
+        client.DefaultRequestHeaders.Add("Accept", $"application/json;api-version={version}");
         return client;
     }
 }

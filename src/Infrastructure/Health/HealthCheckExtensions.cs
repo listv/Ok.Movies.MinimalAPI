@@ -15,6 +15,9 @@ public static class HealthCheckExtensions
         return services;
     }
 
-    public static IEndpointConventionBuilder MapHealthCheck(this IEndpointRouteBuilder endpoints) =>
-        endpoints.MapHealthChecks("_health");
+    public static IApplicationBuilder MapHealthCheck(this IApplicationBuilder app)
+    {
+        (app as IEndpointRouteBuilder)?.MapHealthChecks("_health");
+        return app;
+    }
 }

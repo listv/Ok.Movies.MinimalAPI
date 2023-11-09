@@ -11,16 +11,16 @@ using Xunit;
 
 namespace Ok.Movies.Tests.Integration.Api.Controllers.Movies;
 
-public class GetMoviesControllerTests:IClassFixture<TestApiFactory>
+public class GetMoviesControllerTests : IClassFixture<TestApiFactory>
 {
-    private readonly HttpClient _client;
     private readonly HttpClient _authorizedClient;
+    private readonly HttpClient _client;
 
     public GetMoviesControllerTests(TestApiFactory apiFactory)
     {
         _client = apiFactory.CreateClient();
         _authorizedClient = apiFactory.CreateAndConfigureClient(
-            new Claim(AuthConstants.TrustedMemberClaimName, "true"));
+            claims: new Claim(AuthConstants.TrustedMemberClaimName, "true"));
     }
 
     [Fact]
@@ -39,7 +39,7 @@ public class GetMoviesControllerTests:IClassFixture<TestApiFactory>
         var retrievedMovie = await response.Content.ReadFromJsonAsync<MovieResponse>();
         retrievedMovie.Should().BeEquivalentTo(createdMovie);
     }
-    
+
     [Fact]
     public async Task Get_ShouldReturnMovieBySlug_WhenMovieExists()
     {

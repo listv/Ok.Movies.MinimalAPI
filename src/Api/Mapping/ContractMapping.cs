@@ -70,14 +70,16 @@ public static class ContractMapping
             YearOfRelease = request.Year,
             Title = request.Title,
             SortField = request.SortBy?.Trim('+', '-').Replace('-', '_'),
-            SortOrder = request.SortBy is null ? SortOrder.Unsorted :
-                GetSortOrder(request.SortBy),
-            Page = request.Page,
-            PageSize = request.PageSize
+            SortOrder = request.SortBy is null ? SortOrder.Unsorted : GetSortOrder(request.SortBy),
+            Page = request.Page.GetValueOrDefault(PagedRequest.DefaultPage),
+            PageSize = request.PageSize.GetValueOrDefault(PagedRequest.DefaultPageSize)
         };
     }
 
-    private static SortOrder GetSortOrder(string sortBy) => sortBy.StartsWith('-') ? SortOrder.Descending : SortOrder.Ascending;
+    private static SortOrder GetSortOrder(string sortBy)
+    {
+        return sortBy.StartsWith('-') ? SortOrder.Descending : SortOrder.Ascending;
+    }
 
     public static GetAllMoviesOptions WithUser(this GetAllMoviesOptions options, Guid? userId)
     {

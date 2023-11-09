@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Ok.Movies.Tests.Integration.Api.Controllers.Ratings;
 
-public class GetUserRatingsTests: IClassFixture<RatingTestsFixture>
+public class GetUserRatingsTests : IClassFixture<RatingTestsFixture>
 {
     private readonly RatingTestsFixture _fixture;
 
@@ -39,7 +39,7 @@ public class GetUserRatingsTests: IClassFixture<RatingTestsFixture>
     {
         // Arrange
         var ratedMovie = await _fixture.CreateRatedMovieAsync();
-        
+
         var expected = new List<MovieRatingResponse>
         {
             new()
@@ -59,7 +59,8 @@ public class GetUserRatingsTests: IClassFixture<RatingTestsFixture>
         var ratingResponse = await response.Content.ReadFromJsonAsync<IEnumerable<MovieRatingResponse>>();
         ratingResponse.Should().ContainSingle().And.BeEquivalentTo(expected);
 
-        var adminClient = _fixture.CreateAndConfigureClient(new Claim(AuthConstants.AdminUserClaimName, "true"));
+        var adminClient =
+            _fixture.CreateAndConfigureClient(claims: new Claim(AuthConstants.AdminUserClaimName, "true"));
         await adminClient.DeleteAsync($"{ApiEndpoints.Movies.Base}/{ratedMovie.Id}");
     }
 }

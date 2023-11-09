@@ -20,19 +20,13 @@ public class SwaggerDefaultValues : IOperationFilter
                 : responseType.StatusCode.ToString();
             var response = operation.Responses[responseKey];
 
-            foreach (var contentType in response.Content.Keys)
-            {
-                if (responseType.ApiResponseFormats.All(x => x.MediaType != contentType))
-                {
-                    response.Content.Remove(contentType);
-                }
-            }
+            response.Content.Keys
+                .Where(contentType => responseType.ApiResponseFormats.All(x => x.MediaType != contentType))
+                .ToList()
+                .ForEach(contentType=> response.Content.Remove(contentType));
         }
 
-        if (operation.Parameters == null)
-        {
-            return;
-        }
+        if (operation.Parameters == null) return;
 
         foreach (var parameter in operation.Parameters)
         {
@@ -41,7 +35,10 @@ public class SwaggerDefaultValues : IOperationFilter
 
             parameter.Description ??= description.ModelMetadata.Description;
 
-            if (parameter.Schema.Default == null && description.DefaultValue != null)
+            if (parameter.Schema.Default == null
+                && description.DefaultValue != null
+                && description.DefaultValue is not DBNull
+                && description.ModelMetadata is { } modelMetadata)
             {
                 var json = JsonSerializer.Serialize(
                     description.DefaultValue,

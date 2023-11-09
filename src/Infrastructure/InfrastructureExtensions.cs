@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Ok.Movies.MinimalAPI.Infrastructure.Authentication;
 using Ok.Movies.MinimalAPI.Infrastructure.Cache;
@@ -32,22 +31,17 @@ public static class InfrastructureExtensions
         return services;
     }
 
-    public static IApplicationBuilder? UseInfrastructure(this IApplicationBuilder builder)
+    public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
     {
-        return builder
-            .UseAuthentication()
-            .UseAuthorization()
-            // .UseCors()
-            // .UseResponseCaching()
-            .UseOutputCaching()
-            .UseExceptionMiddleware()
-            .UseOpenApiDocumentation();
-    }
+        app.MapHealthCheck();
+        app.UseOpenApiDocumentation();
+        app.UseAuthentication()
+            .UseAuthorization();
+        // .UseCors()
+        // .UseResponseCaching()
+        app.UseOutputCaching();
+        app.UseExceptionMiddleware();
 
-    public static IEndpointRouteBuilder MapEndpoints(this IEndpointRouteBuilder builder)
-    {
-        builder.MapControllers();
-        builder.MapHealthCheck();
-        return builder;
+        return app;
     }
 }

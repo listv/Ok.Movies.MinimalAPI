@@ -9,9 +9,9 @@ namespace Ok.Movies.Tests.Integration.Api.Controllers.Ratings;
 
 public class RatingTestsFixture : TestApiFactory
 {
+    private HttpClient? _authenticatedClient;
     private MovieResponse? _movie;
     private HttpClient? _unauthorizedClient;
-    private HttpClient? _authenticatedClient;
 
     public MovieResponse? Movie => _movie ??= CreateMovieAsync().GetAwaiter().GetResult();
 
@@ -29,7 +29,7 @@ public class RatingTestsFixture : TestApiFactory
     private async Task<MovieResponse?> CreateMovieAsync()
     {
         var client = CreateAndConfigureClient(
-            new Claim(AuthConstants.TrustedMemberClaimName, "true"));
+            claims: new Claim(AuthConstants.TrustedMemberClaimName, "true"));
 
         var createMovieRequest = new CreateMovieRequestFaker().Generate();
         var createdResponse = await client.PostAsJsonAsync(ApiEndpoints.Movies.Create, createMovieRequest);

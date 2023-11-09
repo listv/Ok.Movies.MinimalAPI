@@ -12,27 +12,25 @@ public static class OpenApiExtensions
     {
         services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
         services.AddSwaggerGen(x => x.OperationFilter<SwaggerDefaultValues>());
+        services.AddEndpointsApiExplorer();
 
         return services;
     }
 
     public static IApplicationBuilder UseOpenApiDocumentation(this IApplicationBuilder builder)
     {
-        if (builder is not WebApplication app)
-        {
-            return builder;
-        }
+        if (builder is not WebApplication app) return builder;
 
         if (!app.Environment.IsDevelopment()) return app;
 
         app.UseSwagger();
         app.UseSwaggerUI(x =>
         {
-            foreach (var description in app.DescribeApiVersions())
-            {
-                x.SwaggerEndpoint( $"/swagger/{description.GroupName}/swagger.json",
-                    description.GroupName);
-            }
+            app.DescribeApiVersions()
+                .ToList()
+                .ForEach(description => x.SwaggerEndpoint(
+                    $"/swagger/{description.GroupName}/swagger.json",
+                    description.GroupName));
         });
 
         return app;

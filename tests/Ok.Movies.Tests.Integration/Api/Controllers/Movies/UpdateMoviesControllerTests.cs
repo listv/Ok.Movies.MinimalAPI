@@ -12,7 +12,7 @@ using Xunit;
 
 namespace Ok.Movies.Tests.Integration.Api.Controllers.Movies;
 
-public class UpdateMoviesControllerTests:IClassFixture<TestApiFactory>
+public class UpdateMoviesControllerTests : IClassFixture<TestApiFactory>
 {
     private readonly TestApiFactory _apiFactory;
 
@@ -29,7 +29,7 @@ public class UpdateMoviesControllerTests:IClassFixture<TestApiFactory>
         // Arrange
         var movie = _createMovieRequestFaker.Generate();
         var client = _apiFactory.CreateAndConfigureClient(
-            new Claim(AuthConstants.TrustedMemberClaimName, "true"));
+            claims: new Claim(AuthConstants.TrustedMemberClaimName, "true"));
         var createdResponse = await client.PostAsJsonAsync(ApiEndpoints.Movies.Create, movie);
         var createdMovie = await createdResponse.Content.ReadFromJsonAsync<MovieResponse>();
 
@@ -64,7 +64,7 @@ public class UpdateMoviesControllerTests:IClassFixture<TestApiFactory>
         // Arrange
         var movie = _createMovieRequestFaker.Generate();
         var client = _apiFactory.CreateAndConfigureClient(
-            new Claim(AuthConstants.TrustedMemberClaimName, "false"));
+            claims: new Claim(AuthConstants.TrustedMemberClaimName, "false"));
 
         // Act
         var response = await client.PutAsJsonAsync($"{ApiEndpoints.Movies.Base}/{new Faker().Random.Guid()}", movie);
@@ -84,7 +84,7 @@ public class UpdateMoviesControllerTests:IClassFixture<TestApiFactory>
             Genres = Enumerable.Empty<string>()
         };
         var client = _apiFactory.CreateAndConfigureClient(
-            new Claim(AuthConstants.TrustedMemberClaimName, "true"));
+            claims: new Claim(AuthConstants.TrustedMemberClaimName, "true"));
 
         // Act
         var response = await client.PutAsJsonAsync($"{ApiEndpoints.Movies.Base}/{Guid.NewGuid()}", movie);
@@ -99,11 +99,11 @@ public class UpdateMoviesControllerTests:IClassFixture<TestApiFactory>
         // Arrange
         var movie = _createMovieRequestFaker.Generate();
         var client = _apiFactory.CreateAndConfigureClient(
-            new Claim(AuthConstants.TrustedMemberClaimName, "true"));
-    
+            claims: new Claim(AuthConstants.TrustedMemberClaimName, "true"));
+
         // Act
         var response = await client.PutAsJsonAsync($"{ApiEndpoints.Movies.Base}/{Guid.NewGuid()}", movie);
-    
+
         // Assert
         response.StatusCode.Should().Be(HttpStatusCode.NotFound);
     }

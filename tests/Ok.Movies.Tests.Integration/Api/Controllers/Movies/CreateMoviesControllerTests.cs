@@ -86,13 +86,19 @@ public class CreateMoviesControllerTests : IClassFixture<TestApiFactory>
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
 
-    private HttpClient GetAuthenticatedClientWithTrustedMemberClaim() =>
-        _apiFactory.CreateAndConfigureClient(
-            new Claim(AuthConstants.TrustedMemberClaimName, "true"));
+    private HttpClient GetAuthenticatedClientWithTrustedMemberClaim()
+    {
+        return _apiFactory.CreateAndConfigureClient(
+            claims: new Claim(AuthConstants.TrustedMemberClaimName, "true"));
+    }
 
-    private HttpClient GetNonAuthenticatedClient() =>
-        _apiFactory.CreateClient();
+    private HttpClient GetNonAuthenticatedClient()
+    {
+        return _apiFactory.CreateClient();
+    }
 
-    private HttpClient GetAuthenticatedButNotAuthorizedClient() =>
-        _apiFactory.CreateAndConfigureClient();
+    private HttpClient GetAuthenticatedButNotAuthorizedClient()
+    {
+        return _apiFactory.CreateAndConfigureClient();
+    }
 }

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Ok.Movies.MinimalAPI.Contracts.Requests;
+using StackExchange.Redis;
 
 namespace Ok.Movies.MinimalAPI.Infrastructure.Cache;
 
@@ -12,7 +13,8 @@ public static class CacheExtensions
     public static IServiceCollection AddOutputCaching(this IServiceCollection services)
     {
         return services
-            .AddOutputCache(options =>
+            .AddSingleton<IConnectionMultiplexer>(_ => ConnectionMultiplexer.Connect("localhost"))
+            .AddRedisOutputCache(options=>
             {
                 options.AddBasePolicy(builder => builder.Cache());
                 options.AddPolicy(MovieCachePolicy, builder =>

@@ -29,7 +29,8 @@ public static class DeleteMovieEndpoint
             .Produces(StatusCodes.Status401Unauthorized)
             .Produces(StatusCodes.Status404NotFound)
             .RequireAuthorization(AuthConstants.AdminUserPolicyName)
-            .WithApiVersionSet(ApiVersioning.VersionSet);
+            .WithApiVersionSet(ApiVersioning.VersionSet)
+            .IsApiVersionNeutral();
 
         return app;
     }

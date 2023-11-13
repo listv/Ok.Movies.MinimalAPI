@@ -12,7 +12,9 @@ using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Ok.Movies.MinimalAPI.Api;
 using Ok.Movies.MinimalAPI.Database.Migrations;
 using Ok.Movies.MinimalAPI.Infrastructure.Database;
+using StackExchange.Redis;
 using Testcontainers.PostgreSql;
+using Testcontainers.Redis;
 using Xunit;
 
 namespace Ok.Movies.Tests.Integration.Core;
@@ -22,15 +24,21 @@ public class TestApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLifetime
     private readonly PostgreSqlContainer _dbContainer = new PostgreSqlBuilder()
         .WithImage("postgres:latest")
         .Build();
+    
+    private readonly RedisContainer _redisContainer = new RedisBuilder()
+        .WithImage("redis:latest")
+        .Build();
 
     public async Task InitializeAsync()
     {
         await _dbContainer.StartAsync().ConfigureAwait(false);
+        await _redisContainer.StartAsync().ConfigureAwait(false);
     }
 
     public new async Task DisposeAsync()
     {
         await _dbContainer.DisposeAsync().ConfigureAwait(false);
+        await _redisContainer.DisposeAsync().ConfigureAwait(false);
     }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -44,6 +52,12 @@ public class TestApiFactory : WebApplicationFactory<IApiMarker>, IAsyncLifetime
             services.AddSingleton<IDbConnectionFactory>(_ =>
                 new NpgsqlConnectionFactory(_dbContainer.GetConnectionString())
             );
+
+            services.RemoveAll(typeof(IConnectionMultiplexer));
+            services.AddSingleton<IConnectionMultiplexer>(_ =>
+                ConnectionMultiplexer.Connect(_redisContainer.GetConnectionString())
+            );
+            
             services.AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb
                     .AddPostgres()

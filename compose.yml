@@ -11,6 +11,8 @@ services:
     depends_on:
       db-migrator:
         condition: service_completed_successfully
+      cache:
+        condition: service_healthy
 
   builder:
     build:
@@ -62,10 +64,21 @@ services:
       target: build
     environment:
       ConnectionStrings__migration-db: ${DATABASE__CONNECTIONSTRING}
-    command: /src/Database.Migrations/bin/Release/net7.0/Database.Migrations
+    command: /src/Database.Migrations/bin/Release/net8.0/Ok.Movies.MinimalAPI.Database.Migrations
     depends_on: 
       db:
         condition: service_healthy
+        
+  cache:
+    image: redis:7.0.4-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+      interval: 1s
+      timeout: 10s
+      retries: 10
 
 volumes: 
   pgdata:

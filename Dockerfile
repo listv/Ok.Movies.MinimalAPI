@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 COPY ./Ok.Movies.MinimalAPI.sln .
 
 COPY ./src/*/*.csproj ./
@@ -18,9 +18,9 @@ RUN dotnet build -c Release --no-restore
 FROM build AS publish
 RUN dotnet publish "/src/Api/Api.csproj" -c Release -o /app/publish /p:UseAppHost=false --no-build
 
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Api.dll"]
+ENTRYPOINT ["dotnet", "Ok.Movies.MinimalAPI.Api.dll"]

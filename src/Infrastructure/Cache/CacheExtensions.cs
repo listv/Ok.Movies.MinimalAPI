@@ -13,7 +13,8 @@ public static class CacheExtensions
     public static IServiceCollection AddOutputCaching(this IServiceCollection services)
     {
         return services
-            .AddSingleton<IConnectionMultiplexer>(_ => ConnectionMultiplexer.Connect("localhost"))
+            .AddSingleton<IConnectionMultiplexer>(_ => ConnectionMultiplexer.Connect(
+                ConfigurationOptions.Parse("localhost,abortConnect=false,connectTimeout=30000,responseTimeout=30000")))
             .AddRedisOutputCache(options=>
             {
                 options.AddBasePolicy(builder => builder.Cache());

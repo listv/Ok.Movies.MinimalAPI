@@ -42,7 +42,8 @@ public static class UpdateMovieEndpoint
             .Produces<ProblemDetails>(StatusCodes.Status400BadRequest)
             .Produces(StatusCodes.Status401Unauthorized)
             .RequireAuthorization(AuthConstants.TrustedMemberPolicyName)
-            .WithApiVersionSet(ApiVersioning.VersionSet);
+            .WithApiVersionSet(ApiVersioning.VersionSet)
+            .IsApiVersionNeutral();
 
         return app;
     }

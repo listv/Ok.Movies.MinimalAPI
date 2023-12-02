@@ -36,7 +36,8 @@ public static class GetMovieEndpoint
             .Produces(StatusCodes.Status404NotFound)
             .WithApiVersionSet(ApiVersioning.VersionSet)
             .IsApiVersionNeutral()
-            .CacheOutput(CacheExtensions.MovieCachePolicy);
+            .CacheOutput(CacheExtensions.MovieCachePolicy)
+            .IsApiVersionNeutral();
 
         return app;
     }

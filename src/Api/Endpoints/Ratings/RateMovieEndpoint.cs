@@ -1,9 +1,9 @@
-using Ok.Movies.MinimalAPI.Application.Services;
-using Ok.Movies.MinimalAPI.Contracts.Requests;
-using Ok.Movies.MinimalAPI.Infrastructure.Authentication;
-using Ok.Movies.MinimalAPI.Infrastructure.Versioning;
+using Application.Services;
+using Contracts.Requests;
+using Infrastructure.Authentication;
+using Infrastructure.Versioning;
 
-namespace Ok.Movies.MinimalAPI.Api.Endpoints.Ratings;
+namespace Api.Endpoints.Ratings;
 
 public static class RateMovieEndpoint
 {

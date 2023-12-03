@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Ok.Movies.MinimalAPI.Infrastructure.Cache;
+namespace Infrastructure.Cache;
 
 public static class RedisOutputCacheExtensions
 {

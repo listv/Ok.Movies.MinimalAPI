@@ -64,7 +64,7 @@ services:
       target: build
     environment:
       ConnectionStrings__migration-db: ${DATABASE__CONNECTIONSTRING}
-    command: /src/Database.Migrations/bin/Release/net8.0/Ok.Movies.MinimalAPI.Database.Migrations
+    command: /src/Database.Migrations/bin/Release/net8.0/Database.Migrations
     depends_on: 
       db:
         condition: service_healthy

@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
+using Infrastructure.Validation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Ok.Movies.MinimalAPI.Infrastructure.Validation;
 
-namespace Ok.Movies.MinimalAPI.Infrastructure.Database;
+namespace Infrastructure.Database;
 
 public static class DatabaseExtensions
 {

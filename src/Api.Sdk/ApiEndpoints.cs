@@ -1,4 +1,4 @@
-﻿namespace Ok.Movies.MinimalAPI.Api.Sdk;
+﻿namespace Api.Sdk;
 
 public static class ApiEndpoints
 {

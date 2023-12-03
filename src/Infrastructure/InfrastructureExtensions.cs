@@ -1,15 +1,15 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Infrastructure.Authentication;
+using Infrastructure.Cache;
+using Infrastructure.Database;
+using Infrastructure.Health;
+using Infrastructure.Middleware;
+using Infrastructure.OpenApi;
+using Infrastructure.Versioning;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Ok.Movies.MinimalAPI.Infrastructure.Authentication;
-using Ok.Movies.MinimalAPI.Infrastructure.Cache;
-using Ok.Movies.MinimalAPI.Infrastructure.Database;
-using Ok.Movies.MinimalAPI.Infrastructure.Health;
-using Ok.Movies.MinimalAPI.Infrastructure.Middleware;
-using Ok.Movies.MinimalAPI.Infrastructure.OpenApi;
-using Ok.Movies.MinimalAPI.Infrastructure.Versioning;
 
-namespace Ok.Movies.MinimalAPI.Infrastructure;
+namespace Infrastructure;
 
 public static class InfrastructureExtensions
 {

@@ -1,4 +1,4 @@
-namespace Ok.Movies.MinimalAPI.Api.Endpoints.Movies;
+namespace Api.Endpoints.Movies;
 
 public static class MovieEndpointExtensions
 {

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Serilog.Events;
 
-namespace Ok.Movies.MinimalAPI.Infrastructure.Logging;
+namespace Infrastructure.Logging;
 
 public class LoggingOptionsValidator:AbstractValidator<LoggingOptions>
 {

@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Ok.Movies.MinimalAPI.Infrastructure.Cache;
+namespace Infrastructure.Cache;
 
 public class RedisCacheOptionsValidator : AbstractValidator<RedisCacheOptions>
 {

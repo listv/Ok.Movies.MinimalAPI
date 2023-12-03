@@ -1,4 +1,4 @@
-﻿namespace Ok.Movies.MinimalAPI.Infrastructure.Database;
+﻿namespace Infrastructure.Database;
 
 public class DatabaseOptions
 {

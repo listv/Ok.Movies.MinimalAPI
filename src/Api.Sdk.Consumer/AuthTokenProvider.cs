@@ -1,7 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Json;
 
-namespace Ok.Movies.MinimalAPI.Api.Sdk.Consumer;
+namespace Api.Sdk.Consumer;
 
 public class AuthTokenProvider
 {

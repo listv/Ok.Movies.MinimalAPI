@@ -1,12 +1,12 @@
 ﻿using System.Text;
 using FluentValidation;
+using Infrastructure.Validation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Ok.Movies.MinimalAPI.Infrastructure.Validation;
 
-namespace Ok.Movies.MinimalAPI.Infrastructure.Authentication;
+namespace Infrastructure.Authentication;
 
 public static class AuthenticationExtensions
 {

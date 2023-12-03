@@ -1,8 +1,8 @@
-﻿using Ok.Movies.MinimalAPI.Application.Models;
-using Ok.Movies.MinimalAPI.Contracts.Requests;
-using Ok.Movies.MinimalAPI.Contracts.Responses;
+﻿using Application.Models;
+using Contracts.Requests;
+using Contracts.Responses;
 
-namespace Ok.Movies.MinimalAPI.Api.Mapping;
+namespace Api.Mapping;
 
 public static class ContractMapping
 {

@@ -1,8 +1,8 @@
 ﻿using System.Text.Json;
+using Api.Sdk;
+using Api.Sdk.Consumer;
+using Contracts.Requests;
 using Microsoft.Extensions.DependencyInjection;
-using Ok.Movies.MinimalAPI.Api.Sdk;
-using Ok.Movies.MinimalAPI.Api.Sdk.Consumer;
-using Ok.Movies.MinimalAPI.Contracts.Requests;
 using Refit;
 
 var services = new ServiceCollection();

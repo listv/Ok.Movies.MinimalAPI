@@ -1,6 +1,6 @@
 ﻿using FluentMigrator;
 
-namespace Ok.Movies.MinimalAPI.Database.Migrations._2023;
+namespace Database.Migrations._2023;
 
 [Migration(202310060525)]
 public class CreateRatingsTable : Migration

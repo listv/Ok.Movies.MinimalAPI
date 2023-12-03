@@ -1,7 +1,7 @@
-using Ok.Movies.MinimalAPI.Api.Endpoints.Movies;
-using Ok.Movies.MinimalAPI.Api.Endpoints.Ratings;
+using Api.Endpoints.Movies;
+using Api.Endpoints.Ratings;
 
-namespace Ok.Movies.MinimalAPI.Api.Endpoints;
+namespace Api.Endpoints;
 
 public static class EndpointsExtensions
 {

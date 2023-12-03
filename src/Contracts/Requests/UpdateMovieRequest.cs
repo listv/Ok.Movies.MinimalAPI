@@ -1,4 +1,4 @@
-﻿namespace Ok.Movies.MinimalAPI.Contracts.Requests;
+﻿namespace Contracts.Requests;
 
 public class UpdateMovieRequest
 {

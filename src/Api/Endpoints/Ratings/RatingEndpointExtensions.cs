@@ -1,4 +1,4 @@
-namespace Ok.Movies.MinimalAPI.Api.Endpoints.Ratings;
+namespace Api.Endpoints.Ratings;
 
 public static class RatingEndpointExtensions
 {

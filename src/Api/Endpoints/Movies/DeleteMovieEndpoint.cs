@@ -1,10 +1,10 @@
+using Application.Services;
+using Infrastructure.Authentication;
+using Infrastructure.Cache;
+using Infrastructure.Versioning;
 using Microsoft.AspNetCore.OutputCaching;
-using Ok.Movies.MinimalAPI.Application.Services;
-using Ok.Movies.MinimalAPI.Infrastructure.Authentication;
-using Ok.Movies.MinimalAPI.Infrastructure.Cache;
-using Ok.Movies.MinimalAPI.Infrastructure.Versioning;
 
-namespace Ok.Movies.MinimalAPI.Api.Endpoints.Movies;
+namespace Api.Endpoints.Movies;
 
 public static class DeleteMovieEndpoint
 {

@@ -1,7 +1,7 @@
-﻿using Bogus;
+﻿using Application.Models;
+using Application.Validators;
+using Bogus;
 using FluentValidation.TestHelper;
-using Ok.Movies.MinimalAPI.Application.Models;
-using Ok.Movies.MinimalAPI.Application.Validators;
 using Xunit;
 
 namespace Ok.Movies.Tests.Unit.Application.Validators;

@@ -23,4 +23,4 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Ok.Movies.MinimalAPI.Api.dll"]
+ENTRYPOINT ["dotnet", "Api.dll"]

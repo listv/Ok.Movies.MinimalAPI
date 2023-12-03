@@ -1,4 +1,4 @@
-﻿namespace Ok.Movies.MinimalAPI.Database.Migrations;
+﻿namespace Database.Migrations;
 
 public interface IDatabaseMigrationsMarker
 {

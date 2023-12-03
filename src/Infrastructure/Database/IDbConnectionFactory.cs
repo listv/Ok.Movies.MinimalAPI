@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace Ok.Movies.MinimalAPI.Infrastructure.Database;
+namespace Infrastructure.Database;
 
 public interface IDbConnectionFactory
 {

@@ -1,4 +1,4 @@
-﻿namespace Ok.Movies.MinimalAPI.Application;
+﻿namespace Application;
 
 public interface IApplicationMarker
 {

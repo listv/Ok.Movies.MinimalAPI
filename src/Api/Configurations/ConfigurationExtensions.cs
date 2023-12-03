@@ -1,4 +1,4 @@
-﻿namespace Ok.Movies.MinimalAPI.Api.Configurations;
+﻿namespace Api.Configurations;
 
 public static class ConfigurationExtensions
 {

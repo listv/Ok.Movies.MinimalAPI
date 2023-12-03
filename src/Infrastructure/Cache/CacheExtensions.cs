@@ -1,12 +1,12 @@
+using Contracts.Requests;
 using FluentValidation;
+using Infrastructure.Validation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Ok.Movies.MinimalAPI.Contracts.Requests;
-using Ok.Movies.MinimalAPI.Infrastructure.Validation;
 using StackExchange.Redis;
 
-namespace Ok.Movies.MinimalAPI.Infrastructure.Cache;
+namespace Infrastructure.Cache;
 
 public static class CacheExtensions
 {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Ok.Movies.MinimalAPI.Infrastructure.Versioning;
+namespace Infrastructure.Versioning;
 
 public static class VersioningExtensions
 {

@@ -1,14 +1,14 @@
 ﻿using FluentValidation;
+using Infrastructure.Validation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Ok.Movies.MinimalAPI.Infrastructure.Validation;
 using Serilog;
 using Serilog.Events;
 using Serilog.Exceptions;
 using Serilog.Formatting.Compact;
 
-namespace Ok.Movies.MinimalAPI.Infrastructure.Logging;
+namespace Infrastructure.Logging;
 
 public static class LoggingExtensions
 {

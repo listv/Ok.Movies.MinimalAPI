@@ -1,6 +1,6 @@
 using FluentValidation;
 using FluentValidation.TestHelper;
-using Ok.Movies.MinimalAPI.Infrastructure.Cache;
+using Infrastructure.Cache;
 using Ok.Movies.Tests.Unit.Core;
 using Xunit;
 

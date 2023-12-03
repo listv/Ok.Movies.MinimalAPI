@@ -3,7 +3,7 @@ using Asp.Versioning.Builder;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 
-namespace Ok.Movies.MinimalAPI.Infrastructure.Versioning;
+namespace Infrastructure.Versioning;
 
 public static class ApiVersioning
 {

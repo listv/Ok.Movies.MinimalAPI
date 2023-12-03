@@ -1,10 +1,10 @@
-using Ok.Movies.MinimalAPI.Api.Mapping;
-using Ok.Movies.MinimalAPI.Application.Services;
-using Ok.Movies.MinimalAPI.Contracts.Responses;
-using Ok.Movies.MinimalAPI.Infrastructure.Authentication;
-using Ok.Movies.MinimalAPI.Infrastructure.Versioning;
+using Api.Mapping;
+using Application.Services;
+using Contracts.Responses;
+using Infrastructure.Authentication;
+using Infrastructure.Versioning;
 
-namespace Ok.Movies.MinimalAPI.Api.Endpoints.Ratings;
+namespace Api.Endpoints.Ratings;
 
 public static class GetUserRatingsEndpoint
 {

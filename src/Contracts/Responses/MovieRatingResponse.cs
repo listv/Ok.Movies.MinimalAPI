@@ -1,4 +1,4 @@
-﻿namespace Ok.Movies.MinimalAPI.Contracts.Responses;
+﻿namespace Contracts.Responses;
 
 public class MovieRatingResponse
 {

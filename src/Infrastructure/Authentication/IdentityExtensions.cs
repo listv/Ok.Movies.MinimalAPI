@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Ok.Movies.MinimalAPI.Infrastructure.Authentication;
+namespace Infrastructure.Authentication;
 
 public static class IdentityExtensions
 {

@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Npgsql;
 
-namespace Ok.Movies.MinimalAPI.Infrastructure.Database;
+namespace Infrastructure.Database;
 
 public class DatabaseOptionsValidator: AbstractValidator<DatabaseOptions>
 {

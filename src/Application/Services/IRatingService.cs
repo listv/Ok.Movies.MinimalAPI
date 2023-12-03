@@ -1,6 +1,6 @@
-﻿using Ok.Movies.MinimalAPI.Application.Models;
+﻿using Application.Models;
 
-namespace Ok.Movies.MinimalAPI.Application.Services;
+namespace Application.Services;
 
 public interface IRatingService
 {

@@ -1,4 +1,4 @@
-﻿namespace Ok.Movies.MinimalAPI.Application.Models;
+﻿namespace Application.Models;
 
 public class MovieRating
 {

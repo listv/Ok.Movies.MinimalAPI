@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.OutputCaching;
 using StackExchange.Redis;
 
-namespace Ok.Movies.MinimalAPI.Infrastructure.Cache;
+namespace Infrastructure.Cache;
 
 public class RedisOutputCacheStore:IOutputCacheStore
 {

@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Ok.Movies.MinimalAPI.Infrastructure.Authentication;
+namespace Infrastructure.Authentication;
 
 public class AuthOptionsValidator : AbstractValidator<AuthOptions>
 {

@@ -1,10 +1,10 @@
 using System.Text.Json;
+using Application.Models;
 using Dapper;
+using Infrastructure.Database;
 using Microsoft.Extensions.Logging;
-using Ok.Movies.MinimalAPI.Application.Models;
-using Ok.Movies.MinimalAPI.Infrastructure.Database;
 
-namespace Ok.Movies.MinimalAPI.Application.Repositories;
+namespace Application.Repositories;
 
 public class MovieRepository : IMovieRepository
 {

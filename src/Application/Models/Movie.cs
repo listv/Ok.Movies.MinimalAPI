@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Ok.Movies.MinimalAPI.Application.Models;
+namespace Application.Models;
 
 public partial class Movie
 {

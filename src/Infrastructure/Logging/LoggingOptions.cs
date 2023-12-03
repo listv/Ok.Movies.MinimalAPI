@@ -1,4 +1,4 @@
-﻿namespace Ok.Movies.MinimalAPI.Infrastructure.Logging;
+﻿namespace Infrastructure.Logging;
 
 public class LoggingOptions
 {

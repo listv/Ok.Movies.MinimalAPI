@@ -1,9 +1,9 @@
-using Ok.Movies.MinimalAPI.Api.Configurations;
-using Ok.Movies.MinimalAPI.Api.Endpoints;
-using Ok.Movies.MinimalAPI.Application;
-using Ok.Movies.MinimalAPI.Infrastructure;
-using Ok.Movies.MinimalAPI.Infrastructure.Logging;
-using Ok.Movies.MinimalAPI.Infrastructure.Versioning;
+using Api.Configurations;
+using Api.Endpoints;
+using Application;
+using Infrastructure;
+using Infrastructure.Logging;
+using Infrastructure.Versioning;
 using Serilog;
 
 StaticLogger.EnsureInitialized(args);

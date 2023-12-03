@@ -70,10 +70,12 @@ services:
         condition: service_healthy
         
   cache:
-    image: redis:7.0.4-alpine
+    image: redis:latest
     restart: always
     ports:
       - '6379:6379'
+    environment:
+      REDISCACHE__CONNECTIONSTRING: ${REDISCACHE__CONNECTIONSTRING}
     healthcheck:
       test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
       interval: 1s

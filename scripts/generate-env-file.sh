@@ -8,6 +8,7 @@ JWT_KEY="$4"
 JWT_AUDIENCE="$5"
 JWT_ISSUER="$6"
 AUTH_APIKEY="$7"
+REDISCACHE_CONNECTIONSTRING="$8"
 #SECRET_2="$2"
 # Add more secrets as needed
 
@@ -19,5 +20,6 @@ echo "JWT__KEY=$JWT_KEY" >> .env
 echo "JWT__AUDIENCE=$JWT_AUDIENCE" >> .env
 echo "JWT__ISSUER=$JWT_ISSUER" >> .env
 echo "AUTH__APIKEY=$AUTH_APIKEY" >> .env
+echo "REDISCACHE__CONNECTIONSTRING=$REDISCACHE_CONNECTIONSTRING" >> .env
 #echo "SECRET_2=$SECRET_2" >> .env
 # Add more secrets as needed

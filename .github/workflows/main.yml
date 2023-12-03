@@ -34,7 +34,7 @@ jobs:
         run: docker-compose up --exit-code-from integration-tests integration-tests
       
       - name: Login to Docker Hub
-        uses: actions/login-action@v3
+        uses: actions/login-action@v1
         with: 
           username: ${{ secrets.DOCKER_USERNAME}}
           password: ${{ secrets.DOCKER_ACCESS_TOKEN}}

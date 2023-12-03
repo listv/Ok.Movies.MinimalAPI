@@ -32,3 +32,23 @@ jobs:
 
       - name: Run integration tests
         run: docker-compose up --exit-code-from integration-tests integration-tests
+      
+      - name: Login to Docker Hub
+        uses: actions/login-action@v3
+        with: 
+          username: ${{ secrets.DOCKER_USERNAME}}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN}}
+      
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with: 
+          images: listv/minimal-api-movies
+          
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
